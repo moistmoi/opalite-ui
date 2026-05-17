@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Tabs — Opalite UI</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="../dist/opalite-ui.js"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <style>body { font-family: 'Inter', system-ui, sans-serif; }</style>
+</head>
+<body class="bg-zinc-50 text-zinc-900 antialiased">
+
+  <header class="border-b border-zinc-200 bg-white/80 backdrop-blur sticky top-0 z-40">
+    <div class="max-w-5xl mx-auto px-6 h-16 flex items-center justify-between">
+      <a href="../index.html" class="flex items-center gap-2 font-bold text-lg">
+        <span class="w-7 h-7 rounded-lg bg-zinc-900 text-white grid place-items-center text-sm">O</span>
+        Opalite UI
+      </a>
+      <a href="../index.html#components" class="text-sm font-medium text-zinc-600 hover:text-zinc-900">All components</a>
+    </div>
+  </header>
+
+  <main class="max-w-5xl mx-auto px-6 py-12">
+    <a href="../index.html#components" class="text-sm text-zinc-500 hover:text-zinc-900">← Back</a>
+    <h1 class="text-4xl font-extrabold tracking-tight mt-3 mb-2">&lt;opalite-tabs&gt;</h1>
+    <p class="text-zinc-600 mb-10">Pill-style tabs. Children are <code class="px-1.5 py-0.5 bg-zinc-100 rounded">&lt;opalite-tab label="..."&gt;</code> with the panel content inside.</p>
+
+    <template data-demo>
+      <opalite-tabs>
+        <opalite-tab label="Overview" active>
+          <h4 style="margin: 0 0 0.25rem; font-weight: 600;">Overview</h4>
+          <p style="margin: 0; color: #71717a; font-size: 0.9rem;">A summary of your account.</p>
+        </opalite-tab>
+        <opalite-tab label="Activity">
+          <h4 style="margin: 0 0 0.25rem; font-weight: 600;">Activity</h4>
+          <p style="margin: 0; color: #71717a; font-size: 0.9rem;">Recent actions on your account.</p>
+        </opalite-tab>
+        <opalite-tab label="Settings">
+          <h4 style="margin: 0 0 0.25rem; font-weight: 600;">Settings</h4>
+          <p style="margin: 0; color: #71717a; font-size: 0.9rem;">Configure notifications and preferences.</p>
+        </opalite-tab>
+      </opalite-tabs>
+    </template>
+  </main>
+
+  <script src="../assets/preview.js"></script>
+</body>
+</html>

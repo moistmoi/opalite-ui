@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Modal — Opalite UI</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="../dist/opalite-ui.js"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <style>body { font-family: 'Inter', system-ui, sans-serif; }</style>
+</head>
+<body class="bg-zinc-50 text-zinc-900 antialiased">
+
+  <header class="border-b border-zinc-200 bg-white/80 backdrop-blur sticky top-0 z-40">
+    <div class="max-w-5xl mx-auto px-6 h-16 flex items-center justify-between">
+      <a href="../index.html" class="flex items-center gap-2 font-bold text-lg">
+        <span class="w-7 h-7 rounded-lg bg-zinc-900 text-white grid place-items-center text-sm">O</span>
+        Opalite UI
+      </a>
+      <a href="../index.html#components" class="text-sm font-medium text-zinc-600 hover:text-zinc-900">All components</a>
+    </div>
+  </header>
+
+  <main class="max-w-5xl mx-auto px-6 py-12">
+    <a href="../index.html#components" class="text-sm text-zinc-500 hover:text-zinc-900">← Back</a>
+    <h1 class="text-4xl font-extrabold tracking-tight mt-3 mb-2">&lt;opalite-modal&gt;</h1>
+    <p class="text-zinc-600 mb-10">Centered dialog with backdrop. Self-contained — include the trigger via <code class="px-1.5 py-0.5 bg-zinc-100 rounded">slot="trigger"</code>.</p>
+
+    <h2 class="text-lg font-semibold mb-3">Basic usage</h2>
+    <template data-demo>
+      <opalite-modal title="Confirm action">
+        <opalite-button slot="trigger" variant="primary">Open modal</opalite-button>
+        <p>Are you sure you want to do this? This action cannot be undone.</p>
+        <div slot="footer">
+          <opalite-button variant="secondary" data-close>Cancel</opalite-button>
+          <opalite-button variant="primary" data-close>Confirm</opalite-button>
+        </div>
+      </opalite-modal>
+    </template>
+
+    <h2 class="text-lg font-semibold mb-3 mt-8">Attributes &amp; slots</h2>
+    <div class="rounded-xl border border-zinc-200 bg-white overflow-hidden">
+      <table class="w-full text-sm">
+        <thead class="bg-zinc-50 text-left">
+          <tr><th class="px-4 py-2 font-semibold">Name</th><th class="px-4 py-2 font-semibold">Purpose</th></tr>
+        </thead>
+        <tbody class="divide-y divide-zinc-200">
+          <tr><td class="px-4 py-2 font-mono">title</td><td class="px-4 py-2">Dialog heading text</td></tr>
+          <tr><td class="px-4 py-2 font-mono">open</td><td class="px-4 py-2">Boolean attribute; toggles visibility</td></tr>
+          <tr><td class="px-4 py-2 font-mono">slot="trigger"</td><td class="px-4 py-2">Element that opens the modal when clicked</td></tr>
+          <tr><td class="px-4 py-2 font-mono">slot="footer"</td><td class="px-4 py-2">Action buttons row</td></tr>
+          <tr><td class="px-4 py-2 font-mono">data-close</td><td class="px-4 py-2">Add to any element inside the modal to close it on click</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h2 class="text-lg font-semibold mb-3 mt-8">Programmatic control</h2>
+    <pre class="bg-zinc-900 text-zinc-100 rounded-xl p-5 text-sm overflow-x-auto"><code>const modal = document.querySelector('opalite-modal');
+modal.show();
+modal.hide();</code></pre>
+  </main>
+
+  <script src="../assets/preview.js"></script>
+</body>
+</html>
