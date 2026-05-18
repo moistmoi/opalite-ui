@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Toast — Opalite UI</title>
+  <title>Navbar — Opalite UI</title>
   <link rel="icon" type="image/x-icon" href="../img/favicon.ico" />
   <script src="https://cdn.tailwindcss.com"></script>
   <script src="../dist/opalite-ui.js"></script>
@@ -34,7 +34,6 @@
     -face { font-family: 'SuisseIntl'; src: url('../fonts/TTF/SuisseNeue-MediumItalic-WebTrial.ttf') format('truetype'); font-weight: 500; font-style: italic; }body { font-family: 'SuisseIntl', system-ui, sans-serif; }</style>
 </head>
 <body class="text-zinc-900 antialiased" style="background: #F2F1EE;">
-
   <header class="sticky top-0 z-40" style="background: #F2F1EE;">
     <div class="max-w-5xl mx-auto px-6 h-20 flex items-center justify-between gap-6">
 
@@ -62,32 +61,42 @@
 
     </div>
   </header>
-
   <main class="max-w-5xl mx-auto px-6 py-16">
     <a href="../index.html#components" class="text-xs font-semibold uppercase tracking-widest text-zinc-400 hover:text-zinc-700 transition">← Back</a>
-    <h1 class="font-black tracking-tight mt-3 mb-3" style="font-size: clamp(32px, 5vw, 52px);">Toast</h1>
-    <p class="text-zinc-400 mb-12" style="font-size: 1.0625rem; max-width: 560px; line-height: 1.6;">Stacking notifications. Triggered via the global <code class="px-1.5 py-0.5 bg-zinc-100 rounded">window.opalite.toast()</code> function — a toaster is auto-mounted on the page.</p>
+    <h1 class="font-black tracking-tight mt-3 mb-3" style="font-size: clamp(32px, 5vw, 52px);">&lt;opalite-navbar&gt;</h1>
+    <p class="text-zinc-400 mb-12" style="font-size: 1.0625rem; max-width: 560px; line-height: 1.6;">Responsive top header with brand, links, actions, and a mobile menu toggle.</p>
 
-    <h2 class="text-sm font-bold uppercase tracking-widest text-zinc-400 mb-4">Trigger via inline onclick</h2>
     <template data-demo>
-      <div style="display: flex; gap: 0.75rem;">
-        <opalite-button onclick="window.opalite.toast('Saved successfully', 'success')">Success</opalite-button>
-        <opalite-button variant="danger" onclick="window.opalite.toast('Something went wrong', 'error')">Error</opalite-button>
-      </div>
+      <opalite-navbar style="width: 100%;">
+        <a slot="brand" href="#">YourSite</a>
+        <a href="#features">Features</a>
+        <a href="#pricing">Pricing</a>
+        <a href="#about">About</a>
+        <opalite-button slot="actions" variant="ghost">Sign in</opalite-button>
+        <opalite-button slot="actions" variant="primary">Sign up</opalite-button>
+        <a slot="mobile-links" href="#features">Features</a>
+        <a slot="mobile-links" href="#pricing">Pricing</a>
+        <a slot="mobile-links" href="#about">About</a>
+      </opalite-navbar>
     </template>
 
-    <h2 class="text-lg font-semibold mb-3 mt-8">API</h2>
-    <pre class="rounded-2xl p-6" style="background: #1C1C1E; color: #E5E5EA;" ' text-sm overflow-x-auto"><code>// Anywhere in your code
-window.opalite.toast('Hello!');                       // success, 3.5s
-window.opalite.toast('Oops', 'error');                // error variant
-window.opalite.toast('Stay forever', 'success', 0);   // duration 0 = no auto-dismiss
+    <p class="text-sm text-zinc-500 mt-4">Resize the window below 720px to see the mobile menu toggle.</p>
 
-// Or via custom event (e.g. from another script)
-window.dispatchEvent(new CustomEvent('opalite:toast', {
-  detail: { message: 'Hello!', type: 'success' }
-}));</code></pre>
+    <h2 class="text-lg font-semibold mb-3 mt-8">Slots</h2>
+    <div class="rounded-xl border border-zinc-200 bg-white overflow-hidden">
+      <table class="w-full text-sm">
+        <thead class="bg-zinc-50 text-left">
+          <tr><th class="px-4 py-2 font-semibold">Slot</th><th class="px-4 py-2 font-semibold">Purpose</th></tr>
+        </thead>
+        <tbody class="divide-y divide-zinc-200">
+          <tr><td class="px-4 py-2 font-mono">brand</td><td class="px-4 py-2">Logo / site name on the left</td></tr>
+          <tr><td class="px-4 py-2">(default)</td><td class="px-4 py-2">Desktop nav links</td></tr>
+          <tr><td class="px-4 py-2 font-mono">actions</td><td class="px-4 py-2">Right-side buttons (always visible)</td></tr>
+          <tr><td class="px-4 py-2 font-mono">mobile-links</td><td class="px-4 py-2">Links shown in mobile dropdown menu</td></tr>
+        </tbody>
+      </table>
+    </div>
   </main>
-
   <script src="../assets/preview.js"></script>
 </body>
 </html>

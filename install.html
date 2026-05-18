@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Install — Opalite UI</title>
+  <link rel="icon" type="image/x-icon" href="./img/favicon.ico" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="./dist/opalite-ui.js"></script>
+  <style>
+    -face { font-family: 'SuisseIntl'; src: url('./fonts/WOFF2/SuisseIntlTrial-Hairline.woff2') format('woff2'); font-weight: 100; font-style: normal; }
+    -face { font-family: 'SuisseIntl'; src: url('./fonts/WOFF2/SuisseIntlTrial-HairlineIt.woff2') format('woff2'); font-weight: 100; font-style: italic; }
+    -face { font-family: 'SuisseIntl'; src: url('./fonts/WOFF2/SuisseIntlTrial-Thin.woff2') format('woff2'); font-weight: 200; font-style: normal; }
+    -face { font-family: 'SuisseIntl'; src: url('./fonts/WOFF2/SuisseIntlTrial-ThinIt.woff2') format('woff2'); font-weight: 200; font-style: italic; }
+    -face { font-family: 'SuisseIntl'; src: url('./fonts/WOFF2/SuisseIntlTrial-Light.woff2') format('woff2'); font-weight: 300; font-style: normal; }
+    -face { font-family: 'SuisseIntl'; src: url('./fonts/WOFF2/SuisseIntlTrial-LightIt.woff2') format('woff2'); font-weight: 300; font-style: italic; }
+    -face { font-family: 'SuisseIntl'; src: url('./fonts/WOFF2/SuisseIntlTrial-Book.woff2') format('woff2'); font-weight: 400; font-style: normal; }
+    -face { font-family: 'SuisseIntl'; src: url('./fonts/WOFF2/SuisseIntlTrial-BookIt.woff2') format('woff2'); font-weight: 400; font-style: italic; }
+    -face { font-family: 'SuisseIntl'; src: url('./fonts/WOFF2/SuisseIntlTrial-Regular.woff2') format('woff2'); font-weight: 450; font-style: normal; }
+    -face { font-family: 'SuisseIntl'; src: url('./fonts/WOFF2/SuisseIntlTrial-RegularIt.woff2') format('woff2'); font-weight: 450; font-style: italic; }
+    -face { font-family: 'SuisseIntl'; src: url('./fonts/WOFF2/SuisseIntlTrial-Medium.woff2') format('woff2'); font-weight: 500; font-style: normal; }
+    -face { font-family: 'SuisseIntl'; src: url('./fonts/WOFF2/SuisseIntlTrial-MediumIt.woff2') format('woff2'); font-weight: 500; font-style: italic; }
+    -face { font-family: 'SuisseIntl'; src: url('./fonts/WOFF2/SuisseIntlTrial-Semibold.woff2') format('woff2'); font-weight: 600; font-style: normal; }
+    -face { font-family: 'SuisseIntl'; src: url('./fonts/WOFF2/SuisseIntlTrial-SemiboldIt.woff2') format('woff2'); font-weight: 600; font-style: italic; }
+    -face { font-family: 'SuisseIntl'; src: url('./fonts/WOFF2/SuisseIntlTrial-Bold.woff2') format('woff2'); font-weight: 700; font-style: normal; }
+    -face { font-family: 'SuisseIntl'; src: url('./fonts/WOFF2/SuisseIntlTrial-BoldIt.woff2') format('woff2'); font-weight: 700; font-style: italic; }
+    -face { font-family: 'SuisseIntl'; src: url('./fonts/WOFF2/SuisseIntlTrial-Black.woff2') format('woff2'); font-weight: 900; font-style: normal; }
+    -face { font-family: 'SuisseIntl'; src: url('./fonts/WOFF2/SuisseIntlTrial-BlackIt.woff2') format('woff2'); font-weight: 900; font-style: italic; }
+    body { font-family: 'SuisseIntl', system-ui, sans-serif; background: #F2F1EE; }
+    .step-num {
+      width: 32px; height: 32px; border-radius: 50%;
+      background: #1C1C1E; color: #fff;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 0.8rem; font-weight: 700; flex-shrink: 0;
+    }
+  </style>
+</head>
+<body class="text-zinc-900 antialiased">
+
+  <!-- ── Header ── -->
+  <header class="sticky top-0 z-40" style="background: #F2F1EE;">
+    <div class="max-w-6xl mx-auto px-6 h-20 flex items-center justify-between gap-6">
+      <a href="./index.html" class="flex-shrink-0">
+        <img src="./img/logo.svg" alt="Opalite UI" style="height: 64px; width: auto;" />
+      </a>
+      <nav class="flex items-center gap-2">
+        <a href="./index.html" class="flex items-center gap-2 px-4 py-2 rounded-full border border-zinc-300 text-sm font-medium text-zinc-600 hover:bg-zinc-200/60 transition" style="background: rgba(255,255,255,0.6);">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9.5L12 3l9 6.5V20a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V9.5z"/><polyline points="9 21 9 12 15 12 15 21"/></svg>
+          Home
+        </a>
+        <a href="./index.html#components" class="flex items-center gap-2 px-4 py-2 rounded-full border border-zinc-300 text-sm font-medium text-zinc-600 hover:bg-zinc-200/60 transition" style="background: rgba(255,255,255,0.6);">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>
+          Components
+        </a>
+        <a href="https://github.com/moistmoi/opalite-ui" target="_blank" class="flex items-center gap-2 px-4 py-2 rounded-full border border-zinc-300 text-sm font-medium text-zinc-600 hover:bg-zinc-200/60 transition" style="background: rgba(255,255,255,0.6);">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0 1 12 6.844a9.59 9.59 0 0 1 2.504.337c1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.02 10.02 0 0 0 22 12.017C22 6.484 17.522 2 12 2z"/></svg>
+          GitHub
+        </a>
+      </nav>
+      <div class="flex items-center gap-2 flex-shrink-0">
+        <a href="./index.html#components" class="px-5 py-2.5 rounded-full text-sm font-bold transition hover:opacity-90" style="background: #CCFF33; color: #18181b;">
+          Get Started
+        </a>
+        <a href="https://github.com/moistmoi/opalite-ui" target="_blank" class="w-10 h-10 rounded-full bg-zinc-900 flex items-center justify-center hover:bg-zinc-700 transition flex-shrink-0">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg>
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <!-- ── Page hero ── -->
+  <section class="max-w-3xl mx-auto px-6 pt-20 pb-16">
+    <a href="./index.html" class="text-xs font-semibold uppercase tracking-widest text-zinc-400 hover:text-zinc-700 transition">← Back</a>
+    <p class="text-xs font-semibold tracking-widest uppercase text-zinc-400 mt-8 mb-4">Documentation</p>
+    <h1 class="font-black tracking-tight mb-4" style="font-size: clamp(40px, 6vw, 72px); line-height: 1.05;">
+      <span style="color: #B0AEA9;">How to</span><br>
+      <span class="text-zinc-900">install &amp; use.</span>
+    </h1>
+    <p class="text-zinc-400 leading-relaxed" style="font-size: 1.0625rem; max-width: 480px;">
+      Opalite UI is a zero-dependency web component library. No npm, no bundler, no framework. Works in any HTML file.
+    </p>
+  </section>
+
+  <!-- ── Steps ── -->
+  <section class="max-w-3xl mx-auto px-6 pb-32 space-y-6">
+
+    <!-- Step 1 -->
+    <div class="rounded-3xl p-8" style="background: #E6E4E1;">
+      <div class="flex items-start gap-4 mb-6">
+        <div class="step-num">1</div>
+        <div>
+          <h2 class="font-black text-xl text-zinc-900">Add the CDN script tag</h2>
+          <p class="text-zinc-500 text-sm mt-1">Paste this one line into the <code class="px-1 rounded" style="background: #D8D6D3;">&lt;head&gt;</code> of your HTML file. That's the entire install.</p>
+        </div>
+      </div>
+      <pre class="rounded-2xl p-5 text-sm leading-relaxed overflow-x-auto" style="background: #1C1C1E; color: #E5E5EA;"><code>&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;head&gt;
+  &lt;!-- Add this line 👇 --&gt;
+  &lt;script src="https://cdn.jsdelivr.net/gh/moistmoi/opalite-ui@main/dist/opalite-ui.js"&gt;&lt;/script&gt;
+&lt;/head&gt;
+&lt;body&gt;
+  &lt;!-- Your components go here --&gt;
+&lt;/body&gt;
+&lt;/html&gt;</code></pre>
+      <p class="text-zinc-400 text-xs mt-4">The script also auto-loads <code class="px-1 rounded" style="background: #D8D6D3;">opalite-ui.css</code> — you don't need to link it separately.</p>
+    </div>
+
+    <!-- Step 2 -->
+    <div class="rounded-3xl p-8" style="background: #E6E4E1;">
+      <div class="flex items-start gap-4 mb-6">
+        <div class="step-num">2</div>
+        <div>
+          <h2 class="font-black text-xl text-zinc-900">Write components in your HTML</h2>
+          <p class="text-zinc-500 text-sm mt-1">Use Opalite components exactly like regular HTML tags. No JavaScript needed.</p>
+        </div>
+      </div>
+      <pre class="rounded-2xl p-5 text-sm leading-relaxed overflow-x-auto" style="background: #1C1C1E; color: #E5E5EA;"><code>&lt;!-- Buttons --&gt;
+&lt;opalite-button variant="primary"&gt;Click me&lt;/opalite-button&gt;
+&lt;opalite-button variant="secondary"&gt;Cancel&lt;/opalite-button&gt;
+&lt;opalite-button variant="danger" loading&gt;Deleting...&lt;/opalite-button&gt;
+
+&lt;!-- Badges --&gt;
+&lt;opalite-badge variant="success"&gt;Active&lt;/opalite-badge&gt;
+&lt;opalite-badge variant="warning"&gt;Beta&lt;/opalite-badge&gt;
+
+&lt;!-- Alerts --&gt;
+&lt;opalite-alert type="success" title="Saved" dismissible&gt;
+  Your changes have been saved.
+&lt;/opalite-alert&gt;</code></pre>
+    </div>
+
+    <!-- Step 3 -->
+    <div class="rounded-3xl p-8" style="background: #E6E4E1;">
+      <div class="flex items-start gap-4 mb-6">
+        <div class="step-num">3</div>
+        <div>
+          <h2 class="font-black text-xl text-zinc-900">Use modal, dropdown &amp; tabs</h2>
+          <p class="text-zinc-500 text-sm mt-1">Interactive components are self-contained — include the trigger inside the component via <code class="px-1 rounded" style="background: #D8D6D3;">slot="trigger"</code>.</p>
+        </div>
+      </div>
+      <pre class="rounded-2xl p-5 text-sm leading-relaxed overflow-x-auto" style="background: #1C1C1E; color: #E5E5EA;"><code>&lt;!-- Modal --&gt;
+&lt;opalite-modal title="Confirm action"&gt;
+  &lt;opalite-button slot="trigger"&gt;Open modal&lt;/opalite-button&gt;
+  &lt;p&gt;Are you sure?&lt;/p&gt;
+  &lt;div slot="footer"&gt;
+    &lt;opalite-button variant="secondary" data-close&gt;Cancel&lt;/opalite-button&gt;
+    &lt;opalite-button variant="primary" data-close&gt;Confirm&lt;/opalite-button&gt;
+  &lt;/div&gt;
+&lt;/opalite-modal&gt;
+
+&lt;!-- Dropdown --&gt;
+&lt;opalite-dropdown&gt;
+  &lt;opalite-button slot="trigger" variant="secondary"&gt;Options ▾&lt;/opalite-button&gt;
+  &lt;a href="#"&gt;View profile&lt;/a&gt;
+  &lt;a href="#"&gt;Settings&lt;/a&gt;
+  &lt;hr&gt;
+  &lt;a href="#" style="color: red;"&gt;Sign out&lt;/a&gt;
+&lt;/opalite-dropdown&gt;
+
+&lt;!-- Tabs --&gt;
+&lt;opalite-tabs&gt;
+  &lt;opalite-tab label="Overview" active&gt;Overview content&lt;/opalite-tab&gt;
+  &lt;opalite-tab label="Activity"&gt;Activity content&lt;/opalite-tab&gt;
+  &lt;opalite-tab label="Settings"&gt;Settings content&lt;/opalite-tab&gt;
+&lt;/opalite-tabs&gt;</code></pre>
+    </div>
+
+    <!-- Step 4 -->
+    <div class="rounded-3xl p-8" style="background: #E6E4E1;">
+      <div class="flex items-start gap-4 mb-6">
+        <div class="step-num">4</div>
+        <div>
+          <h2 class="font-black text-xl text-zinc-900">Trigger toasts from anywhere</h2>
+          <p class="text-zinc-500 text-sm mt-1">The toast system mounts itself automatically. Call it from HTML or JavaScript.</p>
+        </div>
+      </div>
+      <pre class="rounded-2xl p-5 text-sm leading-relaxed overflow-x-auto" style="background: #1C1C1E; color: #E5E5EA;"><code>&lt;!-- From HTML --&gt;
+&lt;opalite-button onclick="opalite.toast('Saved!')"&gt;Save&lt;/opalite-button&gt;
+&lt;opalite-button onclick="opalite.toast('Error', 'error')"&gt;Error&lt;/opalite-button&gt;
+
+&lt;!-- From JavaScript --&gt;
+&lt;script&gt;
+  // Types: 'success' (default) or 'error'
+  opalite.toast('Profile updated');
+  opalite.toast('Something went wrong', 'error');
+  opalite.toast('Pinned forever', 'success', 0); // 0 = never auto-dismiss
+&lt;/script&gt;</code></pre>
+
+      <!-- Live demo -->
+      <div class="mt-6 flex gap-3 flex-wrap">
+        <opalite-button onclick="opalite.toast('Saved successfully!')">Try success toast</opalite-button>
+        <opalite-button variant="danger" onclick="opalite.toast('Something went wrong', 'error')">Try error toast</opalite-button>
+      </div>
+    </div>
+
+    <!-- Step 5: Theming -->
+    <div class="rounded-3xl p-8" style="background: #E6E4E1;">
+      <div class="flex items-start gap-4 mb-6">
+        <div class="step-num">5</div>
+        <div>
+          <h2 class="font-black text-xl text-zinc-900">Customize with CSS variables</h2>
+          <p class="text-zinc-500 text-sm mt-1">Override design tokens globally or per-element — no file editing needed.</p>
+        </div>
+      </div>
+      <pre class="rounded-2xl p-5 text-sm leading-relaxed overflow-x-auto" style="background: #1C1C1E; color: #E5E5EA;"><code>&lt;style&gt;
+  /* Change every component globally */
+  :root {
+    --opalite-bg: #4f46e5;          /* primary button color */
+    --opalite-radius: 0.75rem;       /* border radius */
+    --opalite-font: 'Your Font', sans-serif;
+  }
+&lt;/style&gt;
+
+&lt;!-- Or override one element --&gt;
+&lt;opalite-button style="--opalite-bg: #10b981;"&gt;Green button&lt;/opalite-button&gt;</code></pre>
+
+      <div class="mt-6 p-5 rounded-2xl" style="background: rgba(255,255,255,0.5);">
+        <p class="text-xs font-bold uppercase tracking-widest text-zinc-400 mb-3">All available tokens</p>
+        <div class="grid grid-cols-2 gap-x-8 gap-y-1.5 text-xs text-zinc-600 font-mono">
+          <span>--opalite-bg</span><span class="text-zinc-400">#18181b</span>
+          <span>--opalite-bg-hover</span><span class="text-zinc-400">#27272a</span>
+          <span>--opalite-fg</span><span class="text-zinc-400">#ffffff</span>
+          <span>--opalite-surface</span><span class="text-zinc-400">#ffffff</span>
+          <span>--opalite-border</span><span class="text-zinc-400">#e4e4e7</span>
+          <span>--opalite-text</span><span class="text-zinc-400">#18181b</span>
+          <span>--opalite-text-muted</span><span class="text-zinc-400">#71717a</span>
+          <span>--opalite-danger</span><span class="text-zinc-400">#dc2626</span>
+          <span>--opalite-radius</span><span class="text-zinc-400">0.5rem</span>
+          <span>--opalite-font</span><span class="text-zinc-400">Inter, system-ui</span>
+          <span>--opalite-shadow</span><span class="text-zinc-400">elevation shadow</span>
+          <span>--opalite-ring</span><span class="text-zinc-400">focus ring color</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- CTA -->
+    <div class="rounded-3xl p-10 text-center" style="background: #1C1C1E;">
+      <p class="text-zinc-400 text-sm font-semibold uppercase tracking-widest mb-4">You're ready</p>
+      <h2 class="text-white font-black text-3xl mb-6">Now go build something.</h2>
+      <div class="flex items-center justify-center gap-3 flex-wrap">
+        <a href="./index.html#components" class="px-6 py-3 rounded-full font-bold text-sm transition hover:opacity-90" style="background: #CCFF33; color: #18181b;">
+          Browse all components
+        </a>
+        <a href="https://github.com/moistmoi/opalite-ui" target="_blank" class="px-6 py-3 rounded-full font-semibold text-sm text-zinc-400 border border-zinc-700 hover:border-zinc-500 transition">
+          View on GitHub ↗
+        </a>
+      </div>
+    </div>
+
+  </section>
+
+  <footer class="border-t border-zinc-200/60 py-12 text-center">
+    <p class="text-zinc-400 text-sm">
+      Opalite UI · MIT License ·
+      <a class="text-zinc-600 hover:text-zinc-900 underline transition" href="https://github.com/moistmoi/opalite-ui" target="_blank">View on GitHub</a>
+    </p>
+  </footer>
+
+</body>
+</html>

@@ -1,142 +1,319 @@
 <!DOCTYPE html>
-<html lang="en" class="scroll-smooth">
+<html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Opalite UI — A free web component library</title>
   <meta name="description" content="A free, drop-in web component library. One script tag, ready-to-use HTML components." />
-
-  <!-- Tailwind only powers the docs site itself. End users don't need it. -->
+  <link rel="icon" type="image/x-icon" href="./img/favicon.ico" />
   <script src="https://cdn.tailwindcss.com"></script>
-  <!-- The library -->
   <script src="./dist/opalite-ui.js"></script>
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
   <style>
-    body { font-family: 'Inter', system-ui, sans-serif; }
+    -face { font-family: 'SuisseIntl'; src: url('./fonts/WOFF2/SuisseIntlTrial-Hairline.woff2') format('woff2'); font-weight: 100; font-style: normal; }
+    -face { font-family: 'SuisseIntl'; src: url('./fonts/WOFF2/SuisseIntlTrial-HairlineIt.woff2') format('woff2'); font-weight: 100; font-style: italic; }
+    -face { font-family: 'SuisseIntl'; src: url('./fonts/WOFF2/SuisseIntlTrial-Thin.woff2') format('woff2'); font-weight: 200; font-style: normal; }
+    -face { font-family: 'SuisseIntl'; src: url('./fonts/WOFF2/SuisseIntlTrial-ThinIt.woff2') format('woff2'); font-weight: 200; font-style: italic; }
+    -face { font-family: 'SuisseIntl'; src: url('./fonts/WOFF2/SuisseIntlTrial-Light.woff2') format('woff2'); font-weight: 300; font-style: normal; }
+    -face { font-family: 'SuisseIntl'; src: url('./fonts/WOFF2/SuisseIntlTrial-LightIt.woff2') format('woff2'); font-weight: 300; font-style: italic; }
+    -face { font-family: 'SuisseIntl'; src: url('./fonts/WOFF2/SuisseIntlTrial-Book.woff2') format('woff2'); font-weight: 400; font-style: normal; }
+    -face { font-family: 'SuisseIntl'; src: url('./fonts/WOFF2/SuisseIntlTrial-BookIt.woff2') format('woff2'); font-weight: 400; font-style: italic; }
+    -face { font-family: 'SuisseIntl'; src: url('./fonts/WOFF2/SuisseIntlTrial-Regular.woff2') format('woff2'); font-weight: 450; font-style: normal; }
+    -face { font-family: 'SuisseIntl'; src: url('./fonts/WOFF2/SuisseIntlTrial-RegularIt.woff2') format('woff2'); font-weight: 450; font-style: italic; }
+    -face { font-family: 'SuisseIntl'; src: url('./fonts/WOFF2/SuisseIntlTrial-Medium.woff2') format('woff2'); font-weight: 500; font-style: normal; }
+    -face { font-family: 'SuisseIntl'; src: url('./fonts/WOFF2/SuisseIntlTrial-MediumIt.woff2') format('woff2'); font-weight: 500; font-style: italic; }
+    -face { font-family: 'SuisseIntl'; src: url('./fonts/WOFF2/SuisseIntlTrial-Semibold.woff2') format('woff2'); font-weight: 600; font-style: normal; }
+    -face { font-family: 'SuisseIntl'; src: url('./fonts/WOFF2/SuisseIntlTrial-SemiboldIt.woff2') format('woff2'); font-weight: 600; font-style: italic; }
+    -face { font-family: 'SuisseIntl'; src: url('./fonts/WOFF2/SuisseIntlTrial-Bold.woff2') format('woff2'); font-weight: 700; font-style: normal; }
+    -face { font-family: 'SuisseIntl'; src: url('./fonts/WOFF2/SuisseIntlTrial-BoldIt.woff2') format('woff2'); font-weight: 700; font-style: italic; }
+    -face { font-family: 'SuisseIntl'; src: url('./fonts/WOFF2/SuisseIntlTrial-Black.woff2') format('woff2'); font-weight: 900; font-style: normal; }
+    -face { font-family: 'SuisseIntl'; src: url('./fonts/WOFF2/SuisseIntlTrial-BlackIt.woff2') format('woff2'); font-weight: 900; font-style: italic; }
+    body { font-family: 'SuisseIntl', system-ui, sans-serif; background: #F2F1EE; }
+    .card-preview { background: #E6E4E1; border-radius: 20px; }
+    .card-preview:hover { background: #DDDBD8; }
   </style>
 </head>
-<body class="bg-zinc-50 text-zinc-900 antialiased">
+<body class="text-zinc-900 antialiased">
 
-  <header class="border-b border-zinc-200 bg-white/80 backdrop-blur sticky top-0 z-40">
-    <div class="max-w-6xl mx-auto px-6 h-16 flex items-center justify-between">
-      <a href="./index.html" class="flex items-center gap-2 font-bold text-lg">
-        <span class="w-7 h-7 rounded-lg bg-zinc-900 text-white grid place-items-center text-sm">O</span>
-        Opalite UI
+  <!-- ── Header ── -->
+  <header class="sticky top-0 z-40" style="background: #F2F1EE;">
+    <div class="max-w-6xl mx-auto px-6 h-20 flex items-center justify-between gap-6">
+
+      <a href="./index.html" class="flex-shrink-0">
+        <img src="./img/logo.svg" alt="Opalite UI" style="height: 64px; width: auto;" />
       </a>
-      <nav class="flex items-center gap-6 text-sm font-medium text-zinc-600">
-        <a href="#components" class="hover:text-zinc-900">Components</a>
-        <a href="#install" class="hover:text-zinc-900">Install</a>
-        <a href="https://github.com/moistmoi/opalite-ui" target="_blank" class="hover:text-zinc-900">GitHub</a>
+
+      <nav class="flex items-center gap-2">
+        <a href="#" class="flex items-center gap-2 px-4 py-2 rounded-full border border-zinc-300 text-sm font-medium text-zinc-600 hover:bg-zinc-200/60 transition" style="background: rgba(255,255,255,0.6);">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9.5L12 3l9 6.5V20a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V9.5z"/><polyline points="9 21 9 12 15 12 15 21"/></svg>
+          Home
+        </a>
+        <a href="#components" class="flex items-center gap-2 px-4 py-2 rounded-full border border-zinc-300 text-sm font-medium text-zinc-600 hover:bg-zinc-200/60 transition" style="background: rgba(255,255,255,0.6);">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>
+          Components
+        </a>
+        <a href="#install" class="flex items-center gap-2 px-4 py-2 rounded-full border border-zinc-300 text-sm font-medium text-zinc-600 hover:bg-zinc-200/60 transition" style="background: rgba(255,255,255,0.6);">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 17 10 11 4 5"/><line x1="12" y1="19" x2="20" y2="19"/></svg>
+          Install
+        </a>
+        <a href="https://github.com/moistmoi/opalite-ui" target="_blank" class="flex items-center gap-2 px-4 py-2 rounded-full border border-zinc-300 text-sm font-medium text-zinc-600 hover:bg-zinc-200/60 transition" style="background: rgba(255,255,255,0.6);">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0 1 12 6.844a9.59 9.59 0 0 1 2.504.337c1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.02 10.02 0 0 0 22 12.017C22 6.484 17.522 2 12 2z"/></svg>
+          GitHub
+        </a>
       </nav>
+
+      <div class="flex items-center gap-2 flex-shrink-0">
+        <a href="#components" class="px-5 py-2.5 rounded-full text-sm font-bold transition hover:opacity-90" style="background: #CCFF33; color: #18181b;">
+          Get Started
+        </a>
+        <a href="https://github.com/moistmoi/opalite-ui" target="_blank" class="w-10 h-10 rounded-full bg-zinc-900 flex items-center justify-center hover:bg-zinc-700 transition flex-shrink-0">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg>
+        </a>
+      </div>
+
     </div>
   </header>
 
-  <section class="max-w-6xl mx-auto px-6 pt-20 pb-16 text-center">
-    <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-zinc-100 text-zinc-700 text-xs font-medium mb-6">
-      <span class="w-1.5 h-1.5 rounded-full bg-green-500"></span>
-      One script tag &middot; Zero dependencies &middot; MIT licensed
-    </div>
-    <h1 class="text-5xl md:text-6xl font-extrabold tracking-tight mb-6">
-      Web components,<br />
-      <span class="text-zinc-500">drop them in.</span>
+  <!-- ── Hero ── -->
+  <section class="max-w-6xl mx-auto px-6 pt-24 pb-20">
+    <p class="text-xs font-semibold tracking-widest uppercase text-zinc-400 mb-8">Free · Open source · MIT license</p>
+    <h1 class="leading-none tracking-tight mb-8" style="font-size: clamp(52px, 9vw, 104px); font-weight: 900;">
+      <span class="block" style="color: #B0AEA9;">Drop in. Ship</span>
+      <span class="block text-zinc-900">beautiful UI.</span>
     </h1>
-    <p class="text-lg text-zinc-600 max-w-xl mx-auto mb-10">
-      Add one script tag and write <code class="px-1.5 py-0.5 bg-zinc-100 rounded text-base">&lt;opalite-modal&gt;</code> or <code class="px-1.5 py-0.5 bg-zinc-100 rounded text-base">&lt;opalite-button&gt;</code> in plain HTML. No framework, no build step.
+    <p class="text-zinc-500 mb-12 leading-relaxed" style="font-size: 1.125rem; max-width: 440px;">
+      One <code class="px-1.5 py-0.5 rounded-md text-zinc-700 text-sm" style="background: #E6E4E1;">&lt;script&gt;</code> tag.
+      Write <code class="px-1.5 py-0.5 rounded-md text-zinc-700 text-sm" style="background: #E6E4E1;">&lt;opalite-modal&gt;</code> in plain HTML.
+      No framework, no build step.
     </p>
-    <div class="flex items-center justify-center gap-3 mb-12">
-      <a href="#components" class="px-5 py-2.5 rounded-lg bg-zinc-900 text-white font-medium hover:bg-zinc-800 transition">Browse components</a>
-      <a href="#install" class="px-5 py-2.5 rounded-lg border border-zinc-300 bg-white font-medium hover:bg-zinc-100 transition">Install</a>
+
+    <div class="flex flex-wrap gap-3 items-center">
+      <a href="#components" class="px-6 py-3 rounded-full font-bold text-sm transition hover:opacity-90" style="background: #CCFF33; color: #18181b;">
+        Browse components
+      </a>
+      <a href="./install.html" class="px-6 py-3 rounded-full font-semibold text-sm border border-zinc-300 text-zinc-600 hover:bg-zinc-200/60 transition" style="background: rgba(255,255,255,0.6);">
+        How to install →
+      </a>
     </div>
 
-    <!-- Live hero demo -->
-    <div class="flex flex-wrap items-center justify-center gap-3">
+    <!-- Live preview strip -->
+    <div class="flex flex-wrap gap-3 mt-16">
       <opalite-button variant="primary">Primary</opalite-button>
       <opalite-button variant="secondary">Secondary</opalite-button>
       <opalite-button variant="ghost">Ghost</opalite-button>
-      <opalite-button variant="danger">Danger</opalite-button>
-      <opalite-button onclick="window.opalite.toast('Hello from a toast!')">Show toast</opalite-button>
+      <opalite-badge variant="success">Active</opalite-badge>
+      <opalite-badge variant="warning">Beta</opalite-badge>
+      <opalite-badge variant="info">New</opalite-badge>
+      <opalite-button onclick="window.opalite.toast('Opalite UI is live 🎉')">Show toast</opalite-button>
     </div>
   </section>
 
-  <section id="install" class="max-w-3xl mx-auto px-6 py-16">
-    <h2 class="text-2xl font-bold mb-2">Add this one tag</h2>
-    <p class="text-zinc-600 mb-6">That's the entire install. Components have built-in styles — no Tailwind required on your end.</p>
-    <pre class="bg-zinc-900 text-zinc-100 rounded-xl p-5 text-sm overflow-x-auto"><code>&lt;script src="https://cdn.jsdelivr.net/gh/moistmoi/opalite-ui@main/dist/opalite-ui.js"&gt;&lt;/script&gt;</code></pre>
-    <p class="text-sm text-zinc-500 mt-3">Then write components anywhere in your HTML — see examples below.</p>
+  <!-- ── Install ── -->
+  <section id="install" class="max-w-6xl mx-auto px-6 pb-24">
+    <div class="rounded-3xl p-10" style="background: #E6E4E1;">
+      <p class="text-xs font-semibold tracking-widest uppercase text-zinc-400 mb-4">Install</p>
+      <h2 class="text-3xl font-black text-zinc-900 mb-2">One tag. That's it.</h2>
+      <p class="text-zinc-500 mb-8">Paste this into your <code class="text-zinc-700">&lt;head&gt;</code>. No npm, no bundler, no setup.</p>
+      <div class="rounded-2xl overflow-hidden">
+        <pre class="p-6 text-sm leading-relaxed overflow-x-auto" style="background: #1C1C1E; color: #E5E5EA;"><code>&lt;script src="https://cdn.jsdelivr.net/gh/moistmoi/opalite-ui@main/dist/opalite-ui.js"&gt;&lt;/script&gt;
+
+&lt;!-- Then write components anywhere --&gt;
+&lt;opalite-button variant="primary"&gt;Hello&lt;/opalite-button&gt;
+&lt;opalite-modal title="Welcome"&gt;
+  &lt;opalite-button slot="trigger"&gt;Open&lt;/opalite-button&gt;
+  Any content here.
+&lt;/opalite-modal&gt;</code></pre>
+      </div>
+    </div>
   </section>
 
-  <section id="components" class="max-w-6xl mx-auto px-6 py-16">
-    <h2 class="text-2xl font-bold mb-8">Components</h2>
-    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+  <!-- ── Component grid ── -->
+  <section id="components" class="max-w-6xl mx-auto px-6 pb-32">
+    <p class="text-xs font-semibold tracking-widest uppercase text-zinc-400 mb-4">Components</p>
+    <h2 class="text-4xl font-black text-zinc-900 mb-12">16 components, ready to use.</h2>
 
-      <a href="./components/button.html" class="group block p-6 rounded-xl border border-zinc-200 bg-white hover:border-zinc-900 hover:shadow-lg transition">
-        <div class="h-24 grid place-items-center mb-4 rounded-lg bg-zinc-50">
+    <div class="grid grid-cols-2 sm:grid-cols-3 gap-5">
+
+      <a href="./components/button.html" class="group block cursor-pointer">
+        <div class="card-preview transition h-44 flex items-center justify-center mb-4 overflow-hidden">
           <opalite-button variant="primary">Click me</opalite-button>
         </div>
-        <div class="font-semibold">Button</div>
-        <div class="text-sm text-zinc-500">Variants, loading state, icon-only</div>
+        <p class="font-bold text-zinc-900 text-sm">Button</p>
+        <p class="text-zinc-400 text-xs mt-0.5">Variants, loading, icon-only</p>
       </a>
 
-      <a href="./components/modal.html" class="group block p-6 rounded-xl border border-zinc-200 bg-white hover:border-zinc-900 hover:shadow-lg transition">
-        <div class="h-24 grid place-items-center mb-4 rounded-lg bg-zinc-50">
-          <span onclick="event.preventDefault()" style="pointer-events:none">
-            <opalite-button variant="secondary">Open dialog</opalite-button>
-          </span>
+      <a href="./components/modal.html" class="group block cursor-pointer">
+        <div class="card-preview transition h-44 flex items-center justify-center mb-4 overflow-hidden">
+          <span style="pointer-events:none"><opalite-button variant="secondary">Open dialog</opalite-button></span>
         </div>
-        <div class="font-semibold">Modal</div>
-        <div class="text-sm text-zinc-500">Backdrop, Esc-to-close, slots</div>
+        <p class="font-bold text-zinc-900 text-sm">Modal</p>
+        <p class="text-zinc-400 text-xs mt-0.5">Backdrop, Esc-to-close, slots</p>
       </a>
 
-      <a href="./components/dropdown.html" class="group block p-6 rounded-xl border border-zinc-200 bg-white hover:border-zinc-900 hover:shadow-lg transition">
-        <div class="h-24 grid place-items-center mb-4 rounded-lg bg-zinc-50">
-          <span style="pointer-events:none">
-            <opalite-button variant="secondary">Options ▾</opalite-button>
-          </span>
+      <a href="./components/dropdown.html" class="group block cursor-pointer">
+        <div class="card-preview transition h-44 flex items-center justify-center mb-4 overflow-hidden">
+          <span style="pointer-events:none"><opalite-button variant="secondary">Options ▾</opalite-button></span>
         </div>
-        <div class="font-semibold">Dropdown</div>
-        <div class="text-sm text-zinc-500">Click-outside close</div>
+        <p class="font-bold text-zinc-900 text-sm">Dropdown</p>
+        <p class="text-zinc-400 text-xs mt-0.5">Click-outside close</p>
       </a>
 
-      <a href="./components/tabs.html" class="group block p-6 rounded-xl border border-zinc-200 bg-white hover:border-zinc-900 hover:shadow-lg transition">
-        <div class="h-24 grid place-items-center mb-4 rounded-lg bg-zinc-50">
-          <div class="flex gap-1 bg-white p-1 rounded-lg border border-zinc-200">
-            <span class="px-3 py-1 rounded bg-zinc-900 text-white text-xs">One</span>
-            <span class="px-3 py-1 text-xs text-zinc-500">Two</span>
-            <span class="px-3 py-1 text-xs text-zinc-500">Three</span>
+      <a href="./components/tabs.html" class="group block cursor-pointer">
+        <div class="card-preview transition h-44 flex items-center justify-center mb-4 overflow-hidden">
+          <div class="flex gap-1 p-1 rounded-full" style="background: rgba(255,255,255,0.6);">
+            <span class="px-4 py-1.5 rounded-full bg-zinc-900 text-white text-xs font-medium">One</span>
+            <span class="px-4 py-1.5 text-xs text-zinc-500 font-medium">Two</span>
+            <span class="px-4 py-1.5 text-xs text-zinc-500 font-medium">Three</span>
           </div>
         </div>
-        <div class="font-semibold">Tabs</div>
-        <div class="text-sm text-zinc-500">Pill-style, smooth switching</div>
+        <p class="font-bold text-zinc-900 text-sm">Tabs</p>
+        <p class="text-zinc-400 text-xs mt-0.5">Pill-style, smooth switching</p>
       </a>
 
-      <a href="./components/accordion.html" class="group block p-6 rounded-xl border border-zinc-200 bg-white hover:border-zinc-900 hover:shadow-lg transition">
-        <div class="h-24 grid place-items-center mb-4 rounded-lg bg-zinc-50">
-          <div class="w-40 space-y-1">
-            <div class="bg-white border border-zinc-200 rounded px-3 py-1.5 text-xs flex justify-between"><span>Item 1</span><span>−</span></div>
-            <div class="bg-white border border-zinc-200 rounded px-3 py-1.5 text-xs flex justify-between"><span>Item 2</span><span>+</span></div>
+      <a href="./components/accordion.html" class="group block cursor-pointer">
+        <div class="card-preview transition h-44 flex items-center justify-center mb-4 overflow-hidden p-6">
+          <div class="w-full space-y-2">
+            <div class="rounded-xl px-4 py-3 text-xs flex justify-between font-medium" style="background: rgba(255,255,255,0.7);">What is Opalite? <span>−</span></div>
+            <div class="rounded-xl px-4 py-3 text-xs flex justify-between text-zinc-400" style="background: rgba(255,255,255,0.4);">Is it free? <span>+</span></div>
           </div>
         </div>
-        <div class="font-semibold">Accordion</div>
-        <div class="text-sm text-zinc-500">Single or multi-open</div>
+        <p class="font-bold text-zinc-900 text-sm">Accordion</p>
+        <p class="text-zinc-400 text-xs mt-0.5">Single or multi-open</p>
       </a>
 
-      <a href="./components/toast.html" class="group block p-6 rounded-xl border border-zinc-200 bg-white hover:border-zinc-900 hover:shadow-lg transition">
-        <div class="h-24 grid place-items-center mb-4 rounded-lg bg-zinc-50">
-          <div class="px-3 py-2 rounded-lg bg-zinc-900 text-white text-xs flex items-center gap-2">
-            <span class="w-1.5 h-1.5 rounded-full bg-green-400"></span>
+      <a href="./components/toast.html" class="group block cursor-pointer">
+        <div class="card-preview transition h-44 flex items-center justify-center mb-4 overflow-hidden">
+          <div class="px-4 py-2.5 rounded-xl text-white text-xs flex items-center gap-2 font-medium" style="background: #1C1C1E;">
+            <span class="w-1.5 h-1.5 rounded-full bg-green-400 flex-shrink-0"></span>
             Saved successfully
           </div>
         </div>
-        <div class="font-semibold">Toast</div>
-        <div class="text-sm text-zinc-500">Global API, auto-dismiss</div>
+        <p class="font-bold text-zinc-900 text-sm">Toast</p>
+        <p class="text-zinc-400 text-xs mt-0.5">Global API, auto-dismiss</p>
+      </a>
+
+      <a href="./components/alert.html" class="group block cursor-pointer">
+        <div class="card-preview transition h-44 flex items-center justify-center mb-4 overflow-hidden p-6">
+          <div class="w-full px-4 py-3 rounded-xl text-xs font-medium flex items-center gap-2" style="background: rgba(255,255,255,0.8); color: #166534; border: 1px solid #bbf7d0;">
+            ✓ Your changes have been saved.
+          </div>
+        </div>
+        <p class="font-bold text-zinc-900 text-sm">Alert</p>
+        <p class="text-zinc-400 text-xs mt-0.5">Success, warning, error, info</p>
+      </a>
+
+      <a href="./components/badge.html" class="group block cursor-pointer">
+        <div class="card-preview transition h-44 flex items-center justify-center mb-4 overflow-hidden">
+          <div class="flex gap-2">
+            <opalite-badge>New</opalite-badge>
+            <opalite-badge variant="success">Active</opalite-badge>
+            <opalite-badge variant="primary">Pro</opalite-badge>
+          </div>
+        </div>
+        <p class="font-bold text-zinc-900 text-sm">Badge</p>
+        <p class="text-zinc-400 text-xs mt-0.5">Status &amp; category labels</p>
+      </a>
+
+      <a href="./components/card.html" class="group block cursor-pointer">
+        <div class="card-preview transition h-44 flex items-center justify-center mb-4 overflow-hidden p-6">
+          <div class="w-full rounded-xl overflow-hidden text-xs" style="background: rgba(255,255,255,0.8);">
+            <div class="px-3 py-2 font-semibold" style="background: rgba(0,0,0,0.04); border-bottom: 1px solid rgba(0,0,0,0.06);">Header</div>
+            <div class="px-3 py-3 text-zinc-500">Body content</div>
+          </div>
+        </div>
+        <p class="font-bold text-zinc-900 text-sm">Card</p>
+        <p class="text-zinc-400 text-xs mt-0.5">Content container with slots</p>
+      </a>
+
+      <a href="./components/tooltip.html" class="group block cursor-pointer">
+        <div class="card-preview transition h-44 flex items-center justify-center mb-4 overflow-hidden">
+          <div class="relative flex flex-col items-center gap-2">
+            <div class="px-3 py-1.5 rounded-lg text-white text-xs font-medium" style="background: #1C1C1E;">Helpful info</div>
+            <span class="px-4 py-2 rounded-xl text-xs font-medium" style="background: rgba(255,255,255,0.8);">Hover me</span>
+          </div>
+        </div>
+        <p class="font-bold text-zinc-900 text-sm">Tooltip</p>
+        <p class="text-zinc-400 text-xs mt-0.5">Hover / focus mini info</p>
+      </a>
+
+      <a href="./components/popover.html" class="group block cursor-pointer">
+        <div class="card-preview transition h-44 flex items-center justify-center mb-4 overflow-hidden p-6">
+          <div class="w-full rounded-xl p-3 text-xs" style="background: rgba(255,255,255,0.8);">
+            <div class="font-bold mb-1">Heads up!</div>
+            <div class="text-zinc-400 mb-2">Richer than a tooltip.</div>
+            <span class="px-2 py-1 rounded-lg text-white text-[10px]" style="background: #1C1C1E;">Got it</span>
+          </div>
+        </div>
+        <p class="font-bold text-zinc-900 text-sm">Popover</p>
+        <p class="text-zinc-400 text-xs mt-0.5">Click-triggered rich panel</p>
+      </a>
+
+      <a href="./components/command.html" class="group block cursor-pointer">
+        <div class="card-preview transition h-44 flex items-center justify-center mb-4 overflow-hidden p-6">
+          <div class="w-full rounded-xl overflow-hidden text-xs" style="background: rgba(255,255,255,0.8);">
+            <div class="px-3 py-2 text-zinc-400 flex items-center gap-1.5" style="border-bottom: 1px solid rgba(0,0,0,0.06);">
+              <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+              ⌘K Search...
+            </div>
+            <div class="px-3 py-2 font-medium" style="background: rgba(0,0,0,0.04);">Go to Dashboard</div>
+            <div class="px-3 py-2 text-zinc-400">Settings</div>
+          </div>
+        </div>
+        <p class="font-bold text-zinc-900 text-sm">Command Palette</p>
+        <p class="text-zinc-400 text-xs mt-0.5">⌘K search menu</p>
+      </a>
+
+      <a href="./components/input.html" class="group block cursor-pointer">
+        <div class="card-preview transition h-44 flex items-center justify-center mb-4 overflow-hidden p-8">
+          <div class="w-full">
+            <p class="text-[10px] font-semibold text-zinc-500 mb-1.5">Email address</p>
+            <div class="rounded-xl px-3 py-2.5 text-xs text-zinc-400" style="background: rgba(255,255,255,0.8); border: 1px solid rgba(0,0,0,0.08);">you@example.com</div>
+          </div>
+        </div>
+        <p class="font-bold text-zinc-900 text-sm">Input</p>
+        <p class="text-zinc-400 text-xs mt-0.5">Labels, icons, error states</p>
+      </a>
+
+      <a href="./components/select.html" class="group block cursor-pointer">
+        <div class="card-preview transition h-44 flex items-center justify-center mb-4 overflow-hidden p-8">
+          <div class="w-full">
+            <p class="text-[10px] font-semibold text-zinc-500 mb-1.5">Country</p>
+            <div class="rounded-xl px-3 py-2.5 text-xs text-zinc-700 flex justify-between" style="background: rgba(255,255,255,0.8); border: 1px solid rgba(0,0,0,0.08);">United States <span>▾</span></div>
+          </div>
+        </div>
+        <p class="font-bold text-zinc-900 text-sm">Select</p>
+        <p class="text-zinc-400 text-xs mt-0.5">Styled dropdown for forms</p>
+      </a>
+
+      <a href="./components/checkbox-switch.html" class="group block cursor-pointer">
+        <div class="card-preview transition h-44 flex items-center justify-center mb-4 overflow-hidden gap-6">
+          <opalite-checkbox label="Agree" checked></opalite-checkbox>
+          <opalite-switch checked></opalite-switch>
+        </div>
+        <p class="font-bold text-zinc-900 text-sm">Checkbox &amp; Switch</p>
+        <p class="text-zinc-400 text-xs mt-0.5">Boolean form controls</p>
+      </a>
+
+      <a href="./components/navbar.html" class="group block cursor-pointer">
+        <div class="card-preview transition h-44 flex items-center justify-center mb-4 overflow-hidden p-6">
+          <div class="w-full rounded-xl px-4 py-3 flex items-center justify-between text-xs" style="background: rgba(255,255,255,0.8);">
+            <span class="font-black">Site</span>
+            <span class="flex gap-3 text-zinc-400 font-medium"><span>Features</span><span>Pricing</span></span>
+            <span class="px-3 py-1.5 rounded-full font-bold text-[10px]" style="background: #CCFF33; color: #18181b;">Sign up</span>
+          </div>
+        </div>
+        <p class="font-bold text-zinc-900 text-sm">Navbar</p>
+        <p class="text-zinc-400 text-xs mt-0.5">Header with mobile menu</p>
       </a>
 
     </div>
   </section>
 
-  <footer class="border-t border-zinc-200 mt-20 py-10 text-center text-sm text-zinc-500">
-    Built with Web Components · <a class="underline hover:text-zinc-900" href="https://github.com/">View on GitHub</a>
+  <!-- ── Footer ── -->
+  <footer class="border-t border-zinc-200/60 py-12 text-center">
+    <p class="text-zinc-400 text-sm">
+      Opalite UI · MIT License ·
+      <a class="text-zinc-600 hover:text-zinc-900 underline transition" href="https://github.com/moistmoi/opalite-ui" target="_blank">View on GitHub</a>
+    </p>
   </footer>
 
 </body>

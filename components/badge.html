@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Toast — Opalite UI</title>
+  <title>Badge — Opalite UI</title>
   <link rel="icon" type="image/x-icon" href="../img/favicon.ico" />
   <script src="https://cdn.tailwindcss.com"></script>
   <script src="../dist/opalite-ui.js"></script>
@@ -34,7 +34,6 @@
     -face { font-family: 'SuisseIntl'; src: url('../fonts/TTF/SuisseNeue-MediumItalic-WebTrial.ttf') format('truetype'); font-weight: 500; font-style: italic; }body { font-family: 'SuisseIntl', system-ui, sans-serif; }</style>
 </head>
 <body class="text-zinc-900 antialiased" style="background: #F2F1EE;">
-
   <header class="sticky top-0 z-40" style="background: #F2F1EE;">
     <div class="max-w-5xl mx-auto px-6 h-20 flex items-center justify-between gap-6">
 
@@ -62,32 +61,30 @@
 
     </div>
   </header>
-
   <main class="max-w-5xl mx-auto px-6 py-16">
     <a href="../index.html#components" class="text-xs font-semibold uppercase tracking-widest text-zinc-400 hover:text-zinc-700 transition">← Back</a>
-    <h1 class="font-black tracking-tight mt-3 mb-3" style="font-size: clamp(32px, 5vw, 52px);">Toast</h1>
-    <p class="text-zinc-400 mb-12" style="font-size: 1.0625rem; max-width: 560px; line-height: 1.6;">Stacking notifications. Triggered via the global <code class="px-1.5 py-0.5 bg-zinc-100 rounded">window.opalite.toast()</code> function — a toaster is auto-mounted on the page.</p>
+    <h1 class="font-black tracking-tight mt-3 mb-3" style="font-size: clamp(32px, 5vw, 52px);">&lt;opalite-badge&gt;</h1>
+    <p class="text-zinc-400 mb-12" style="font-size: 1.0625rem; max-width: 560px; line-height: 1.6;">Small pill-style label. Useful for status, tags, or counts.</p>
 
-    <h2 class="text-sm font-bold uppercase tracking-widest text-zinc-400 mb-4">Trigger via inline onclick</h2>
+    <h2 class="text-sm font-bold uppercase tracking-widest text-zinc-400 mb-4">Variants</h2>
     <template data-demo>
-      <div style="display: flex; gap: 0.75rem;">
-        <opalite-button onclick="window.opalite.toast('Saved successfully', 'success')">Success</opalite-button>
-        <opalite-button variant="danger" onclick="window.opalite.toast('Something went wrong', 'error')">Error</opalite-button>
+      <div style="display: flex; flex-wrap: wrap; gap: 0.5rem; align-items: center;">
+        <opalite-badge>Default</opalite-badge>
+        <opalite-badge variant="primary">Primary</opalite-badge>
+        <opalite-badge variant="success">Active</opalite-badge>
+        <opalite-badge variant="warning">Beta</opalite-badge>
+        <opalite-badge variant="danger">Deprecated</opalite-badge>
+        <opalite-badge variant="info">New</opalite-badge>
       </div>
     </template>
 
-    <h2 class="text-lg font-semibold mb-3 mt-8">API</h2>
-    <pre class="rounded-2xl p-6" style="background: #1C1C1E; color: #E5E5EA;" ' text-sm overflow-x-auto"><code>// Anywhere in your code
-window.opalite.toast('Hello!');                       // success, 3.5s
-window.opalite.toast('Oops', 'error');                // error variant
-window.opalite.toast('Stay forever', 'success', 0);   // duration 0 = no auto-dismiss
-
-// Or via custom event (e.g. from another script)
-window.dispatchEvent(new CustomEvent('opalite:toast', {
-  detail: { message: 'Hello!', type: 'success' }
-}));</code></pre>
+    <h2 class="text-sm font-bold uppercase tracking-widest text-zinc-400 mb-4">Inline usage</h2>
+    <template data-demo>
+      <p style="font-size: 0.95rem; margin: 0;">
+        Welcome to your dashboard <opalite-badge variant="primary">Pro</opalite-badge>
+      </p>
+    </template>
   </main>
-
   <script src="../assets/preview.js"></script>
 </body>
 </html>

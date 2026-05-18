@@ -3,48 +3,21 @@
  * MIT License
  *
  * Usage:
- *   <script src="https://cdn.jsdelivr.net/gh/YOU/opalite-ui@main/dist/opalite-ui.js"></script>
+ *   <script src="https://cdn.jsdelivr.net/gh/moistmoi/opalite-ui@main/dist/opalite-ui.js"></script>
  *   <opalite-button variant="primary">Click me</opalite-button>
+ *
+ * Styles live in dist/opalite-ui.css and are loaded automatically into each
+ * component's shadow root via <link>. End users only need this one script tag.
  */
 (function () {
   'use strict';
 
-  // ---------- Shared design tokens (overridable via CSS variables on the host) ----------
-  const tokens = `
-    :host {
-      --opalite-font: 'Inter', system-ui, -apple-system, sans-serif;
-      --opalite-radius: 0.5rem;
-      --opalite-bg: #18181b;
-      --opalite-bg-hover: #27272a;
-      --opalite-fg: #ffffff;
-      --opalite-surface: #ffffff;
-      --opalite-surface-2: #fafafa;
-      --opalite-border: #e4e4e7;
-      --opalite-text: #18181b;
-      --opalite-text-muted: #71717a;
-      --opalite-danger: #dc2626;
-      --opalite-danger-hover: #b91c1c;
-      --opalite-ring: rgba(24, 24, 27, 0.15);
-      --opalite-shadow: 0 10px 25px -5px rgba(0,0,0,0.1), 0 8px 10px -6px rgba(0,0,0,0.1);
-      font-family: var(--opalite-font);
-      box-sizing: border-box;
-    }
-    *, *::before, *::after { box-sizing: border-box; }
-  `;
-
-  function styled(tag, styles, render) {
-    return class extends HTMLElement {
-      constructor() {
-        super();
-        this.attachShadow({ mode: 'open' });
-      }
-      connectedCallback() { this._render(); this._mount && this._mount(); }
-      attributeChangedCallback() { if (this.shadowRoot.firstChild) this._update && this._update(); }
-      _render() {
-        this.shadowRoot.innerHTML = `<style>${tokens}${styles}</style>${render(this)}`;
-      }
-    };
-  }
+  // ---------- Resolve the stylesheet URL relative to wherever this script was loaded from ----------
+  const SCRIPT_SRC = (document.currentScript && document.currentScript.src) || '';
+  const CSS_HREF = SCRIPT_SRC
+    ? SCRIPT_SRC.replace(/opalite-ui\.js(\?.*)?$/, 'opalite-ui.css')
+    : './opalite-ui.css';
+  const STYLESHEET = `<link rel="stylesheet" href="${CSS_HREF}">`;
 
   // ============================================================
   // <opalite-button>
@@ -55,82 +28,7 @@
       super();
       this.attachShadow({ mode: 'open' });
       this.shadowRoot.innerHTML = `
-        <style>
-          ${tokens}
-          button {
-            font: inherit;
-            font-weight: 500;
-            font-size: 0.875rem;
-            padding: 0.5rem 1rem;
-            border-radius: var(--opalite-radius);
-            border: 1px solid transparent;
-            cursor: pointer;
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            gap: 0.5rem;
-            transition: background 120ms, transform 80ms, opacity 120ms;
-            user-select: none;
-          }
-          button:focus-visible {
-            outline: none;
-            box-shadow: 0 0 0 3px var(--opalite-ring);
-          }
-          button:active:not(:disabled) { transform: scale(0.97); }
-          button:disabled { opacity: 0.6; cursor: not-allowed; }
-
-          :host([variant="primary"]) button,
-          :host(:not([variant])) button {
-            background: var(--opalite-bg);
-            color: var(--opalite-fg);
-          }
-          :host([variant="primary"]) button:hover:not(:disabled),
-          :host(:not([variant])) button:hover:not(:disabled) {
-            background: var(--opalite-bg-hover);
-          }
-
-          :host([variant="secondary"]) button {
-            background: var(--opalite-surface);
-            color: var(--opalite-text);
-            border-color: var(--opalite-border);
-          }
-          :host([variant="secondary"]) button:hover:not(:disabled) {
-            background: var(--opalite-surface-2);
-          }
-
-          :host([variant="ghost"]) button {
-            background: transparent;
-            color: var(--opalite-text);
-          }
-          :host([variant="ghost"]) button:hover:not(:disabled) {
-            background: var(--opalite-surface-2);
-          }
-
-          :host([variant="danger"]) button {
-            background: var(--opalite-danger);
-            color: #fff;
-          }
-          :host([variant="danger"]) button:hover:not(:disabled) {
-            background: var(--opalite-danger-hover);
-          }
-
-          :host([icon-only]) button {
-            padding: 0.5rem;
-            width: 2.5rem;
-            height: 2.5rem;
-          }
-
-          .spinner {
-            width: 1em; height: 1em;
-            border: 2px solid currentColor;
-            border-right-color: transparent;
-            border-radius: 50%;
-            animation: spin 0.6s linear infinite;
-          }
-          @keyframes spin { to { transform: rotate(360deg); } }
-
-          :host { display: inline-block; }
-        </style>
+        ${STYLESHEET}
         <button part="button">
           <span class="spinner" hidden></span>
           <slot></slot>
@@ -158,61 +56,7 @@
       super();
       this.attachShadow({ mode: 'open' });
       this.shadowRoot.innerHTML = `
-        <style>
-          ${tokens}
-          :host { display: contents; }
-          .backdrop {
-            position: fixed; inset: 0;
-            background: rgba(24, 24, 27, 0.5);
-            backdrop-filter: blur(4px);
-            display: grid;
-            place-items: center;
-            padding: 1rem;
-            z-index: 50;
-            opacity: 0;
-            pointer-events: none;
-            transition: opacity 180ms ease;
-          }
-          :host([open]) .backdrop {
-            opacity: 1;
-            pointer-events: auto;
-          }
-          .panel {
-            background: var(--opalite-surface);
-            color: var(--opalite-text);
-            border-radius: calc(var(--opalite-radius) * 2);
-            box-shadow: var(--opalite-shadow);
-            width: 100%;
-            max-width: 28rem;
-            padding: 1.5rem;
-            transform: scale(0.96);
-            transition: transform 180ms ease;
-          }
-          :host([open]) .panel { transform: scale(1); }
-          .header {
-            display: flex;
-            align-items: flex-start;
-            justify-content: space-between;
-            margin-bottom: 1rem;
-          }
-          .title {
-            font-size: 1.125rem;
-            font-weight: 600;
-            margin: 0;
-          }
-          .close {
-            background: none;
-            border: 0;
-            cursor: pointer;
-            color: var(--opalite-text-muted);
-            padding: 0;
-            line-height: 1;
-            font-size: 1.25rem;
-          }
-          .close:hover { color: var(--opalite-text); }
-          .footer { margin-top: 1.5rem; display: flex; justify-content: flex-end; gap: 0.5rem; }
-          .footer:empty { display: none; }
-        </style>
+        ${STYLESHEET}
         <slot name="trigger"></slot>
         <div class="backdrop" part="backdrop">
           <div class="panel" part="panel" role="dialog" aria-modal="true">
@@ -241,7 +85,6 @@
       window.addEventListener('keydown', this._onKey);
       this._triggerSlot.addEventListener('slotchange', () => this._wireTrigger());
       this._wireTrigger();
-      // Close from any descendant with [data-close]
       this.addEventListener('click', (e) => {
         if (e.target.closest('[data-close]')) this.hide();
       });
@@ -276,53 +119,7 @@
       super();
       this.attachShadow({ mode: 'open' });
       this.shadowRoot.innerHTML = `
-        <style>
-          ${tokens}
-          :host { display: inline-block; position: relative; }
-          .menu {
-            position: absolute;
-            top: calc(100% + 0.5rem);
-            left: 0;
-            min-width: 12rem;
-            background: var(--opalite-surface);
-            border: 1px solid var(--opalite-border);
-            border-radius: var(--opalite-radius);
-            box-shadow: var(--opalite-shadow);
-            padding: 0.25rem;
-            display: none;
-            z-index: 20;
-            opacity: 0;
-            transform: translateY(-4px);
-            transition: opacity 120ms, transform 120ms;
-          }
-          :host([open]) .menu {
-            display: block;
-            opacity: 1;
-            transform: translateY(0);
-          }
-          ::slotted(a), ::slotted(button) {
-            display: block;
-            padding: 0.5rem 0.75rem;
-            font: inherit;
-            font-size: 0.875rem;
-            color: var(--opalite-text);
-            background: transparent;
-            border: 0;
-            text-align: left;
-            width: 100%;
-            text-decoration: none;
-            border-radius: calc(var(--opalite-radius) - 2px);
-            cursor: pointer;
-          }
-          ::slotted(a:hover), ::slotted(button:hover) {
-            background: var(--opalite-surface-2);
-          }
-          ::slotted(hr) {
-            border: 0;
-            border-top: 1px solid var(--opalite-border);
-            margin: 0.25rem 0;
-          }
-        </style>
+        ${STYLESHEET}
         <slot name="trigger"></slot>
         <div class="menu" part="menu"><slot></slot></div>
       `;
@@ -337,7 +134,6 @@
       document.addEventListener('click', this._onDocClick);
       this._onKey = (e) => { if (e.key === 'Escape') this.close(); };
       window.addEventListener('keydown', this._onKey);
-      // Close when an item is clicked
       this.addEventListener('click', (e) => {
         if (e.target.closest('a, button') && e.target.slot !== 'trigger') this.close();
       });
@@ -367,42 +163,7 @@
       super();
       this.attachShadow({ mode: 'open' });
       this.shadowRoot.innerHTML = `
-        <style>
-          ${tokens}
-          :host { display: block; }
-          .bar {
-            display: inline-flex;
-            gap: 0.25rem;
-            padding: 0.25rem;
-            background: var(--opalite-surface-2);
-            border-radius: var(--opalite-radius);
-          }
-          .tab {
-            font: inherit;
-            font-size: 0.875rem;
-            font-weight: 500;
-            padding: 0.375rem 0.875rem;
-            border-radius: calc(var(--opalite-radius) - 2px);
-            border: 0;
-            cursor: pointer;
-            background: transparent;
-            color: var(--opalite-text-muted);
-            transition: background 120ms, color 120ms;
-          }
-          .tab:hover { color: var(--opalite-text); }
-          .tab.active {
-            background: var(--opalite-surface);
-            color: var(--opalite-text);
-            box-shadow: 0 1px 2px rgba(0,0,0,0.06);
-          }
-          .panels {
-            margin-top: 1rem;
-            padding: 1.25rem;
-            border: 1px solid var(--opalite-border);
-            border-radius: var(--opalite-radius);
-            background: var(--opalite-surface);
-          }
-        </style>
+        ${STYLESHEET}
         <div class="bar" part="bar"></div>
         <div class="panels" part="panels"><slot></slot></div>
       `;
@@ -445,7 +206,7 @@
     constructor() {
       super();
       this.attachShadow({ mode: 'open' });
-      this.shadowRoot.innerHTML = `<style>:host { display: block; }</style><slot></slot>`;
+      this.shadowRoot.innerHTML = `${STYLESHEET}<slot></slot>`;
     }
   }
   customElements.define('opalite-tab', OpaliteTab);
@@ -457,22 +218,7 @@
     constructor() {
       super();
       this.attachShadow({ mode: 'open' });
-      this.shadowRoot.innerHTML = `
-        <style>
-          ${tokens}
-          :host {
-            display: block;
-            border: 1px solid var(--opalite-border);
-            border-radius: var(--opalite-radius);
-            background: var(--opalite-surface);
-            overflow: hidden;
-          }
-          ::slotted(opalite-accordion-item:not(:last-child)) {
-            border-bottom: 1px solid var(--opalite-border);
-          }
-        </style>
-        <slot></slot>
-      `;
+      this.shadowRoot.innerHTML = `${STYLESHEET}<slot></slot>`;
     }
     connectedCallback() {
       this.addEventListener('opalite-accordion-open', (e) => {
@@ -492,46 +238,7 @@
       super();
       this.attachShadow({ mode: 'open' });
       this.shadowRoot.innerHTML = `
-        <style>
-          ${tokens}
-          :host { display: block; }
-          .header {
-            width: 100%;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: 1rem 1.25rem;
-            background: transparent;
-            border: 0;
-            cursor: pointer;
-            font: inherit;
-            font-weight: 500;
-            font-size: 0.95rem;
-            color: var(--opalite-text);
-            text-align: left;
-          }
-          .header:hover { background: var(--opalite-surface-2); }
-          .chevron {
-            transition: transform 200ms;
-            color: var(--opalite-text-muted);
-          }
-          :host([open]) .chevron { transform: rotate(180deg); }
-          .body {
-            display: grid;
-            grid-template-rows: 0fr;
-            transition: grid-template-rows 200ms ease;
-          }
-          :host([open]) .body { grid-template-rows: 1fr; }
-          .body-inner {
-            overflow: hidden;
-            padding: 0 1.25rem;
-            color: var(--opalite-text-muted);
-            font-size: 0.9rem;
-          }
-          :host([open]) .body-inner {
-            padding-bottom: 1rem;
-          }
-        </style>
+        ${STYLESHEET}
         <button class="header" part="header">
           <span class="label"></span>
           <svg class="chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
@@ -565,59 +272,7 @@
     constructor() {
       super();
       this.attachShadow({ mode: 'open' });
-      this.shadowRoot.innerHTML = `
-        <style>
-          ${tokens}
-          :host {
-            position: fixed;
-            top: 1.5rem;
-            right: 1.5rem;
-            z-index: 100;
-            display: flex;
-            flex-direction: column;
-            gap: 0.5rem;
-            pointer-events: none;
-          }
-          .toast {
-            pointer-events: auto;
-            background: var(--opalite-bg);
-            color: var(--opalite-fg);
-            padding: 0.75rem 1rem;
-            border-radius: var(--opalite-radius);
-            box-shadow: var(--opalite-shadow);
-            font-size: 0.875rem;
-            font-weight: 500;
-            display: flex;
-            align-items: center;
-            gap: 0.75rem;
-            min-width: 18rem;
-            max-width: 24rem;
-            animation: slideIn 180ms ease;
-          }
-          .toast.error { background: var(--opalite-danger); }
-          .toast.success { background: var(--opalite-bg); }
-          .toast.removing { animation: slideOut 150ms ease forwards; }
-          .dot {
-            width: 6px; height: 6px; border-radius: 50%; flex-shrink: 0;
-          }
-          .toast.success .dot { background: #4ade80; }
-          .toast.error .dot { background: #fecaca; }
-          .msg { flex: 1; }
-          .close {
-            background: none; border: 0; color: inherit;
-            opacity: 0.6; cursor: pointer; font-size: 1.1rem;
-            line-height: 1; padding: 0;
-          }
-          .close:hover { opacity: 1; }
-          @keyframes slideIn {
-            from { transform: translateX(20px); opacity: 0; }
-            to { transform: translateX(0); opacity: 1; }
-          }
-          @keyframes slideOut {
-            to { transform: translateX(20px); opacity: 0; }
-          }
-        </style>
-      `;
+      this.shadowRoot.innerHTML = `${STYLESHEET}`;
     }
     push(message, type = 'success', duration = 3500) {
       const toast = document.createElement('div');
@@ -639,7 +294,6 @@
   }
   customElements.define('opalite-toaster', OpaliteToaster);
 
-  // Auto-mount a global toaster, expose API
   function ensureToaster() {
     let host = document.querySelector('opalite-toaster');
     if (!host) {
@@ -652,16 +306,472 @@
   const api = {
     toast(message, type = 'success', duration = 3500) {
       const host = ensureToaster();
-      // Wait until the element is upgraded
       customElements.whenDefined('opalite-toaster').then(() => host.push(message, type, duration));
     },
   };
 
-  // Listen for custom events too: window.dispatchEvent(new CustomEvent('opalite:toast', {detail: {...}}))
   window.addEventListener('opalite:toast', (e) => {
     const { message, type, duration } = e.detail || {};
     api.toast(message, type, duration);
   });
+
+  // ============================================================
+  // <opalite-alert>
+  // ============================================================
+  class OpaliteAlert extends HTMLElement {
+    static get observedAttributes() { return ['type', 'title', 'dismissible']; }
+    constructor() {
+      super();
+      this.attachShadow({ mode: 'open' });
+      this.shadowRoot.innerHTML = `
+        ${STYLESHEET}
+        <div class="alert" part="alert">
+          <svg class="icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></svg>
+          <div class="content">
+            <div class="title"></div>
+            <div class="body"><slot></slot></div>
+          </div>
+          <button class="close" aria-label="Dismiss">&times;</button>
+        </div>
+      `;
+      this._titleEl = this.shadowRoot.querySelector('.title');
+      this._iconEl = this.shadowRoot.querySelector('.icon');
+      this.shadowRoot.querySelector('.close').addEventListener('click', () => this.remove());
+    }
+    connectedCallback() { this._update(); }
+    attributeChangedCallback() { this._update(); }
+    _update() {
+      const title = this.getAttribute('title');
+      this._titleEl.textContent = title || '';
+      this._titleEl.style.display = title ? '' : 'none';
+      const type = this.getAttribute('type') || 'info';
+      const icons = {
+        success: '<polyline points="20 6 9 17 4 12"></polyline>',
+        warning: '<path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/>',
+        error: '<circle cx="12" cy="12" r="10"/><line x1="15" y1="9" x2="9" y2="15"/><line x1="9" y1="9" x2="15" y2="15"/>',
+        info: '<circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/>',
+      };
+      this._iconEl.innerHTML = icons[type] || icons.info;
+    }
+  }
+  customElements.define('opalite-alert', OpaliteAlert);
+
+  // ============================================================
+  // <opalite-badge>
+  // ============================================================
+  class OpaliteBadge extends HTMLElement {
+    constructor() {
+      super();
+      this.attachShadow({ mode: 'open' });
+      this.shadowRoot.innerHTML = `${STYLESHEET}<span class="badge" part="badge"><slot></slot></span>`;
+    }
+  }
+  customElements.define('opalite-badge', OpaliteBadge);
+
+  // ============================================================
+  // <opalite-card>
+  // ============================================================
+  class OpaliteCard extends HTMLElement {
+    constructor() {
+      super();
+      this.attachShadow({ mode: 'open' });
+      this.shadowRoot.innerHTML = `
+        ${STYLESHEET}
+        <div class="card" part="card">
+          <div class="header" part="header"><slot name="header"></slot></div>
+          <div class="body" part="body"><slot></slot></div>
+          <div class="footer" part="footer"><slot name="footer"></slot></div>
+        </div>
+      `;
+    }
+  }
+  customElements.define('opalite-card', OpaliteCard);
+
+  // ============================================================
+  // <opalite-tooltip>
+  // ============================================================
+  class OpaliteTooltip extends HTMLElement {
+    static get observedAttributes() { return ['text']; }
+    constructor() {
+      super();
+      this.attachShadow({ mode: 'open' });
+      this.shadowRoot.innerHTML = `
+        ${STYLESHEET}
+        <slot></slot>
+        <div class="tip" part="tip" role="tooltip"></div>
+      `;
+      this._tip = this.shadowRoot.querySelector('.tip');
+    }
+    connectedCallback() {
+      this._tip.textContent = this.getAttribute('text') || '';
+      const show = () => this.setAttribute('visible', '');
+      const hide = () => this.removeAttribute('visible');
+      this.addEventListener('mouseenter', show);
+      this.addEventListener('mouseleave', hide);
+      this.addEventListener('focusin', show);
+      this.addEventListener('focusout', hide);
+    }
+    attributeChangedCallback() {
+      if (this._tip) this._tip.textContent = this.getAttribute('text') || '';
+    }
+  }
+  customElements.define('opalite-tooltip', OpaliteTooltip);
+
+  // ============================================================
+  // <opalite-popover>
+  // ============================================================
+  class OpalitePopover extends HTMLElement {
+    constructor() {
+      super();
+      this.attachShadow({ mode: 'open' });
+      this.shadowRoot.innerHTML = `
+        ${STYLESHEET}
+        <slot name="trigger"></slot>
+        <div class="pop" part="pop"><slot></slot></div>
+      `;
+      this._triggerSlot = this.shadowRoot.querySelector('slot[name="trigger"]');
+    }
+    connectedCallback() {
+      this._triggerSlot.addEventListener('slotchange', () => this._wireTrigger());
+      this._wireTrigger();
+      this._onDocClick = (e) => {
+        if (!e.composedPath().includes(this)) this.close();
+      };
+      document.addEventListener('click', this._onDocClick);
+      this._onKey = (e) => { if (e.key === 'Escape') this.close(); };
+      window.addEventListener('keydown', this._onKey);
+    }
+    disconnectedCallback() {
+      document.removeEventListener('click', this._onDocClick);
+      window.removeEventListener('keydown', this._onKey);
+    }
+    _wireTrigger() {
+      const [el] = this._triggerSlot.assignedElements();
+      if (el && !el._opaliteWired) {
+        el.addEventListener('click', (e) => { e.stopPropagation(); this.toggle(); });
+        el._opaliteWired = true;
+      }
+    }
+    toggle() { this.hasAttribute('open') ? this.close() : this.open(); }
+    open() { this.setAttribute('open', ''); }
+    close() { this.removeAttribute('open'); }
+  }
+  customElements.define('opalite-popover', OpalitePopover);
+
+  // ============================================================
+  // <opalite-command> + <opalite-command-item>
+  // ============================================================
+  class OpaliteCommand extends HTMLElement {
+    constructor() {
+      super();
+      this.attachShadow({ mode: 'open' });
+      this.shadowRoot.innerHTML = `
+        ${STYLESHEET}
+        <div class="overlay" part="overlay">
+          <div class="panel" part="panel" role="dialog" aria-modal="true">
+            <div class="search">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+              <input type="text" placeholder="Type a command or search..." aria-label="Search">
+            </div>
+            <div class="list"><slot></slot><div class="empty" hidden>No results</div></div>
+          </div>
+        </div>
+      `;
+      this._input = this.shadowRoot.querySelector('input');
+      this._overlay = this.shadowRoot.querySelector('.overlay');
+      this._empty = this.shadowRoot.querySelector('.empty');
+    }
+    connectedCallback() {
+      this._onKey = (e) => {
+        if ((e.metaKey || e.ctrlKey) && e.key === 'k') {
+          e.preventDefault();
+          this.open();
+        } else if (e.key === 'Escape' && this.hasAttribute('open')) {
+          this.close();
+        } else if (this.hasAttribute('open')) {
+          if (e.key === 'ArrowDown') { e.preventDefault(); this._move(1); }
+          if (e.key === 'ArrowUp') { e.preventDefault(); this._move(-1); }
+          if (e.key === 'Enter') { e.preventDefault(); this._select(); }
+        }
+      };
+      window.addEventListener('keydown', this._onKey);
+      this._input.addEventListener('input', () => this._filter());
+      this._overlay.addEventListener('click', (e) => {
+        if (e.target === this._overlay) this.close();
+      });
+      this.addEventListener('click', (e) => {
+        const item = e.target.closest('opalite-command-item');
+        if (item) this._fire(item);
+      });
+    }
+    disconnectedCallback() {
+      window.removeEventListener('keydown', this._onKey);
+    }
+    _items() {
+      return [...this.querySelectorAll('opalite-command-item')].filter(i => !i.hidden);
+    }
+    _filter() {
+      const q = this._input.value.toLowerCase().trim();
+      const items = [...this.querySelectorAll('opalite-command-item')];
+      let visible = 0;
+      items.forEach((item) => {
+        const text = (item.textContent + ' ' + (item.getAttribute('keywords') || '')).toLowerCase();
+        const match = !q || text.includes(q);
+        item.hidden = !match;
+        if (match) visible++;
+      });
+      this._empty.hidden = visible > 0;
+      this._setActive(0);
+    }
+    _setActive(index) {
+      const items = this._items();
+      items.forEach((i) => i.classList.remove('opalite-active'));
+      if (items[index]) items[index].classList.add('opalite-active');
+      this._activeIndex = index;
+    }
+    _move(delta) {
+      const items = this._items();
+      if (!items.length) return;
+      let i = (this._activeIndex ?? 0) + delta;
+      if (i < 0) i = items.length - 1;
+      if (i >= items.length) i = 0;
+      this._setActive(i);
+      items[i].scrollIntoView({ block: 'nearest' });
+    }
+    _select() {
+      const items = this._items();
+      const item = items[this._activeIndex ?? 0];
+      if (item) this._fire(item);
+    }
+    _fire(item) {
+      item.dispatchEvent(new CustomEvent('opalite-command-select', {
+        bubbles: true,
+        detail: { value: item.getAttribute('value') || item.textContent.trim() },
+      }));
+      this.close();
+    }
+    open() {
+      this.setAttribute('open', '');
+      this._input.value = '';
+      this._filter();
+      setTimeout(() => this._input.focus(), 0);
+    }
+    close() { this.removeAttribute('open'); }
+  }
+  customElements.define('opalite-command', OpaliteCommand);
+
+  class OpaliteCommandItem extends HTMLElement {}
+  customElements.define('opalite-command-item', OpaliteCommandItem);
+
+  // ============================================================
+  // <opalite-input>
+  // ============================================================
+  class OpaliteInput extends HTMLElement {
+    static get observedAttributes() { return ['label', 'placeholder', 'type', 'value', 'error', 'disabled', 'required']; }
+    constructor() {
+      super();
+      this.attachShadow({ mode: 'open' });
+      this.shadowRoot.innerHTML = `
+        ${STYLESHEET}
+        <label class="field">
+          <span class="label-text"></span>
+          <div class="wrap">
+            <slot name="prefix"></slot>
+            <input>
+            <slot name="suffix"></slot>
+          </div>
+          <div class="error-msg"></div>
+        </label>
+      `;
+      this._input = this.shadowRoot.querySelector('input');
+      this._label = this.shadowRoot.querySelector('.label-text');
+      this._error = this.shadowRoot.querySelector('.error-msg');
+      this._input.addEventListener('input', () => {
+        this.dispatchEvent(new Event('input', { bubbles: true }));
+      });
+      this._input.addEventListener('change', () => {
+        this.dispatchEvent(new Event('change', { bubbles: true }));
+      });
+    }
+    connectedCallback() { this._update(); }
+    attributeChangedCallback() { this._update(); }
+    _update() {
+      const label = this.getAttribute('label') || '';
+      this._label.textContent = label;
+      this._label.style.display = label ? '' : 'none';
+      this._input.placeholder = this.getAttribute('placeholder') || '';
+      this._input.type = this.getAttribute('type') || 'text';
+      if (this.hasAttribute('value')) this._input.value = this.getAttribute('value');
+      this._input.disabled = this.hasAttribute('disabled');
+      this._input.required = this.hasAttribute('required');
+      this._error.textContent = this.getAttribute('error') || '';
+    }
+    get value() { return this._input.value; }
+    set value(v) { this._input.value = v; }
+    focus() { this._input.focus(); }
+  }
+  customElements.define('opalite-input', OpaliteInput);
+
+  // ============================================================
+  // <opalite-select>
+  // ============================================================
+  class OpaliteSelect extends HTMLElement {
+    static get observedAttributes() { return ['label', 'value', 'disabled']; }
+    constructor() {
+      super();
+      this.attachShadow({ mode: 'open' });
+      this.shadowRoot.innerHTML = `
+        ${STYLESHEET}
+        <label class="field">
+          <span class="label-text"></span>
+          <div class="wrap">
+            <select></select>
+            <svg class="arrow" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
+          </div>
+        </label>
+      `;
+      this._select = this.shadowRoot.querySelector('select');
+      this._label = this.shadowRoot.querySelector('.label-text');
+      this._select.addEventListener('change', () => {
+        this.dispatchEvent(new Event('change', { bubbles: true }));
+      });
+    }
+    connectedCallback() {
+      this._syncOptions();
+      this._observer = new MutationObserver(() => this._syncOptions());
+      this._observer.observe(this, { childList: true, subtree: true, attributes: true });
+      this._update();
+    }
+    disconnectedCallback() { this._observer && this._observer.disconnect(); }
+    attributeChangedCallback() { this._update && this._update(); }
+    _syncOptions() {
+      const opts = [...this.querySelectorAll('option')];
+      this._select.innerHTML = '';
+      opts.forEach((o) => {
+        const clone = o.cloneNode(true);
+        this._select.appendChild(clone);
+      });
+      if (this.hasAttribute('value')) this._select.value = this.getAttribute('value');
+    }
+    _update() {
+      const label = this.getAttribute('label') || '';
+      this._label.textContent = label;
+      this._label.style.display = label ? '' : 'none';
+      this._select.disabled = this.hasAttribute('disabled');
+      if (this.hasAttribute('value')) this._select.value = this.getAttribute('value');
+    }
+    get value() { return this._select.value; }
+    set value(v) { this._select.value = v; }
+  }
+  customElements.define('opalite-select', OpaliteSelect);
+
+  // ============================================================
+  // <opalite-checkbox>
+  // ============================================================
+  class OpaliteCheckbox extends HTMLElement {
+    static get observedAttributes() { return ['checked', 'disabled', 'label']; }
+    constructor() {
+      super();
+      this.attachShadow({ mode: 'open' });
+      this.shadowRoot.innerHTML = `
+        ${STYLESHEET}
+        <label>
+          <input type="checkbox">
+          <span class="box">
+            <svg class="check" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+          </span>
+          <span class="label-text"></span>
+        </label>
+      `;
+      this._input = this.shadowRoot.querySelector('input');
+      this._label = this.shadowRoot.querySelector('.label-text');
+      this._input.addEventListener('change', () => {
+        if (this._input.checked) this.setAttribute('checked', '');
+        else this.removeAttribute('checked');
+        this.dispatchEvent(new Event('change', { bubbles: true }));
+      });
+    }
+    connectedCallback() { this._update(); }
+    attributeChangedCallback() { this._update(); }
+    _update() {
+      this._label.textContent = this.getAttribute('label') || '';
+      this._input.checked = this.hasAttribute('checked');
+      this._input.disabled = this.hasAttribute('disabled');
+    }
+    get checked() { return this._input.checked; }
+    set checked(v) {
+      if (v) this.setAttribute('checked', '');
+      else this.removeAttribute('checked');
+    }
+  }
+  customElements.define('opalite-checkbox', OpaliteCheckbox);
+
+  // ============================================================
+  // <opalite-switch>
+  // ============================================================
+  class OpaliteSwitch extends HTMLElement {
+    static get observedAttributes() { return ['checked', 'disabled', 'label']; }
+    constructor() {
+      super();
+      this.attachShadow({ mode: 'open' });
+      this.shadowRoot.innerHTML = `
+        ${STYLESHEET}
+        <label>
+          <input type="checkbox" role="switch">
+          <span class="track"><span class="thumb"></span></span>
+          <span class="label-text"></span>
+        </label>
+      `;
+      this._input = this.shadowRoot.querySelector('input');
+      this._label = this.shadowRoot.querySelector('.label-text');
+      this._input.addEventListener('change', () => {
+        if (this._input.checked) this.setAttribute('checked', '');
+        else this.removeAttribute('checked');
+        this.dispatchEvent(new Event('change', { bubbles: true }));
+      });
+    }
+    connectedCallback() { this._update(); }
+    attributeChangedCallback() { this._update(); }
+    _update() {
+      this._label.textContent = this.getAttribute('label') || '';
+      this._input.checked = this.hasAttribute('checked');
+      this._input.disabled = this.hasAttribute('disabled');
+    }
+    get checked() { return this._input.checked; }
+    set checked(v) {
+      if (v) this.setAttribute('checked', '');
+      else this.removeAttribute('checked');
+    }
+  }
+  customElements.define('opalite-switch', OpaliteSwitch);
+
+  // ============================================================
+  // <opalite-navbar>
+  // ============================================================
+  class OpaliteNavbar extends HTMLElement {
+    constructor() {
+      super();
+      this.attachShadow({ mode: 'open' });
+      this.shadowRoot.innerHTML = `
+        ${STYLESHEET}
+        <nav>
+          <div class="brand"><slot name="brand"></slot></div>
+          <div class="links"><slot></slot></div>
+          <div class="actions">
+            <slot name="actions"></slot>
+            <button class="hamburger" aria-label="Menu">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+            </button>
+          </div>
+        </nav>
+        <div class="mobile"><slot name="mobile-links"></slot></div>
+      `;
+      this.shadowRoot.querySelector('.hamburger').addEventListener('click', () => {
+        this.toggleAttribute('open');
+      });
+    }
+  }
+  customElements.define('opalite-navbar', OpaliteNavbar);
 
   window.opalite = Object.assign(window.opalite || {}, api);
 })();

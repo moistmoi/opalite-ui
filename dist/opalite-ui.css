@@ -1,0 +1,835 @@
+/*!
+ * Opalite UI — Stylesheet
+ * Loaded automatically by opalite-ui.js into each component's shadow root.
+ * Override design tokens at the document level with :root { --opalite-bg: ... }
+ * or per-element with style="--opalite-bg: ..."
+ */
+
+/* ============================================================
+   Design tokens
+   Apply to every Opalite component (every shadow root).
+   ============================================================ */
+:host {
+  --opalite-font: 'Inter', system-ui, -apple-system, sans-serif;
+  --opalite-radius: 0.5rem;
+
+  --opalite-bg: #18181b;
+  --opalite-bg-hover: #27272a;
+  --opalite-fg: #ffffff;
+
+  --opalite-surface: #ffffff;
+  --opalite-surface-2: #fafafa;
+  --opalite-border: #e4e4e7;
+  --opalite-text: #18181b;
+  --opalite-text-muted: #71717a;
+
+  --opalite-danger: #dc2626;
+  --opalite-danger-hover: #b91c1c;
+  --opalite-success: #16a34a;
+  --opalite-warning: #d97706;
+  --opalite-info: #2563eb;
+
+  --opalite-ring: rgba(24, 24, 27, 0.15);
+  --opalite-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1),
+                    0 8px 10px -6px rgba(0, 0, 0, 0.1);
+
+  font-family: var(--opalite-font);
+  box-sizing: border-box;
+}
+*, *::before, *::after { box-sizing: border-box; }
+
+/* ============================================================
+   <opalite-button>
+   ============================================================ */
+:host(opalite-button) { display: inline-block; }
+
+:host(opalite-button) button {
+  font: inherit;
+  font-weight: 500;
+  font-size: 0.875rem;
+  padding: 0.5rem 1rem;
+  border-radius: var(--opalite-radius);
+  border: 1px solid transparent;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  transition: background 120ms, transform 80ms, opacity 120ms;
+  user-select: none;
+}
+:host(opalite-button) button:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 3px var(--opalite-ring);
+}
+:host(opalite-button) button:active:not(:disabled) { transform: scale(0.97); }
+:host(opalite-button) button:disabled { opacity: 0.6; cursor: not-allowed; }
+
+:host(opalite-button[variant="primary"]) button,
+:host(opalite-button:not([variant])) button {
+  background: var(--opalite-bg);
+  color: var(--opalite-fg);
+}
+:host(opalite-button[variant="primary"]) button:hover:not(:disabled),
+:host(opalite-button:not([variant])) button:hover:not(:disabled) {
+  background: var(--opalite-bg-hover);
+}
+
+:host(opalite-button[variant="secondary"]) button {
+  background: var(--opalite-surface);
+  color: var(--opalite-text);
+  border-color: var(--opalite-border);
+}
+:host(opalite-button[variant="secondary"]) button:hover:not(:disabled) {
+  background: var(--opalite-surface-2);
+}
+
+:host(opalite-button[variant="ghost"]) button {
+  background: transparent;
+  color: var(--opalite-text);
+}
+:host(opalite-button[variant="ghost"]) button:hover:not(:disabled) {
+  background: var(--opalite-surface-2);
+}
+
+:host(opalite-button[variant="danger"]) button {
+  background: var(--opalite-danger);
+  color: #fff;
+}
+:host(opalite-button[variant="danger"]) button:hover:not(:disabled) {
+  background: var(--opalite-danger-hover);
+}
+
+:host(opalite-button[icon-only]) button {
+  padding: 0.5rem;
+  width: 2.5rem;
+  height: 2.5rem;
+}
+
+:host(opalite-button) .spinner {
+  width: 1em; height: 1em;
+  border: 2px solid currentColor;
+  border-right-color: transparent;
+  border-radius: 50%;
+  animation: opalite-spin 0.6s linear infinite;
+}
+@keyframes opalite-spin { to { transform: rotate(360deg); } }
+
+/* ============================================================
+   <opalite-modal>
+   ============================================================ */
+:host(opalite-modal) { display: contents; }
+
+:host(opalite-modal) .backdrop {
+  position: fixed; inset: 0;
+  background: rgba(24, 24, 27, 0.5);
+  backdrop-filter: blur(4px);
+  display: grid;
+  place-items: center;
+  padding: 1rem;
+  z-index: 50;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 180ms ease;
+}
+:host(opalite-modal[open]) .backdrop {
+  opacity: 1;
+  pointer-events: auto;
+}
+:host(opalite-modal) .panel {
+  background: var(--opalite-surface);
+  color: var(--opalite-text);
+  border-radius: calc(var(--opalite-radius) * 2);
+  box-shadow: var(--opalite-shadow);
+  width: 100%;
+  max-width: 28rem;
+  padding: 1.5rem;
+  transform: scale(0.96);
+  transition: transform 180ms ease;
+}
+:host(opalite-modal[open]) .panel { transform: scale(1); }
+:host(opalite-modal) .header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  margin-bottom: 1rem;
+}
+:host(opalite-modal) .title {
+  font-size: 1.125rem;
+  font-weight: 600;
+  margin: 0;
+}
+:host(opalite-modal) .close {
+  background: none; border: 0; cursor: pointer;
+  color: var(--opalite-text-muted);
+  padding: 0; line-height: 1; font-size: 1.25rem;
+}
+:host(opalite-modal) .close:hover { color: var(--opalite-text); }
+:host(opalite-modal) .footer { margin-top: 1.5rem; display: flex; justify-content: flex-end; gap: 0.5rem; }
+:host(opalite-modal) .footer:empty { display: none; }
+
+/* ============================================================
+   <opalite-dropdown>
+   ============================================================ */
+:host(opalite-dropdown) { display: inline-block; position: relative; }
+
+:host(opalite-dropdown) .menu {
+  position: absolute;
+  top: calc(100% + 0.5rem);
+  left: 0;
+  min-width: 12rem;
+  background: var(--opalite-surface);
+  border: 1px solid var(--opalite-border);
+  border-radius: var(--opalite-radius);
+  box-shadow: var(--opalite-shadow);
+  padding: 0.25rem;
+  display: none;
+  z-index: 20;
+  opacity: 0;
+  transform: translateY(-4px);
+  transition: opacity 120ms, transform 120ms;
+}
+:host(opalite-dropdown[open]) .menu {
+  display: block;
+  opacity: 1;
+  transform: translateY(0);
+}
+:host(opalite-dropdown) ::slotted(a),
+:host(opalite-dropdown) ::slotted(button) {
+  display: block;
+  padding: 0.5rem 0.75rem;
+  font: inherit;
+  font-size: 0.875rem;
+  color: var(--opalite-text);
+  background: transparent;
+  border: 0;
+  text-align: left;
+  width: 100%;
+  text-decoration: none;
+  border-radius: calc(var(--opalite-radius) - 2px);
+  cursor: pointer;
+}
+:host(opalite-dropdown) ::slotted(a:hover),
+:host(opalite-dropdown) ::slotted(button:hover) {
+  background: var(--opalite-surface-2);
+}
+:host(opalite-dropdown) ::slotted(hr) {
+  border: 0;
+  border-top: 1px solid var(--opalite-border);
+  margin: 0.25rem 0;
+}
+
+/* ============================================================
+   <opalite-tabs> + <opalite-tab>
+   ============================================================ */
+:host(opalite-tabs) { display: block; }
+
+:host(opalite-tabs) .bar {
+  display: inline-flex;
+  gap: 0.25rem;
+  padding: 0.25rem;
+  background: var(--opalite-surface-2);
+  border-radius: var(--opalite-radius);
+}
+:host(opalite-tabs) .tab {
+  font: inherit;
+  font-size: 0.875rem;
+  font-weight: 500;
+  padding: 0.375rem 0.875rem;
+  border-radius: calc(var(--opalite-radius) - 2px);
+  border: 0;
+  cursor: pointer;
+  background: transparent;
+  color: var(--opalite-text-muted);
+  transition: background 120ms, color 120ms;
+}
+:host(opalite-tabs) .tab:hover { color: var(--opalite-text); }
+:host(opalite-tabs) .tab.active {
+  background: var(--opalite-surface);
+  color: var(--opalite-text);
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.06);
+}
+:host(opalite-tabs) .panels {
+  margin-top: 1rem;
+  padding: 1.25rem;
+  border: 1px solid var(--opalite-border);
+  border-radius: var(--opalite-radius);
+  background: var(--opalite-surface);
+}
+
+:host(opalite-tab) { display: block; }
+
+/* ============================================================
+   <opalite-accordion> + <opalite-accordion-item>
+   ============================================================ */
+:host(opalite-accordion) {
+  display: block;
+  border: 1px solid var(--opalite-border);
+  border-radius: var(--opalite-radius);
+  background: var(--opalite-surface);
+  overflow: hidden;
+}
+:host(opalite-accordion) ::slotted(opalite-accordion-item:not(:last-child)) {
+  border-bottom: 1px solid var(--opalite-border);
+}
+
+:host(opalite-accordion-item) { display: block; }
+:host(opalite-accordion-item) .header {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1rem 1.25rem;
+  background: transparent;
+  border: 0;
+  cursor: pointer;
+  font: inherit;
+  font-weight: 500;
+  font-size: 0.95rem;
+  color: var(--opalite-text);
+  text-align: left;
+}
+:host(opalite-accordion-item) .header:hover { background: var(--opalite-surface-2); }
+:host(opalite-accordion-item) .chevron {
+  transition: transform 200ms;
+  color: var(--opalite-text-muted);
+}
+:host(opalite-accordion-item[open]) .chevron { transform: rotate(180deg); }
+:host(opalite-accordion-item) .body {
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: grid-template-rows 200ms ease;
+}
+:host(opalite-accordion-item[open]) .body { grid-template-rows: 1fr; }
+:host(opalite-accordion-item) .body-inner {
+  overflow: hidden;
+  padding: 0 1.25rem;
+  color: var(--opalite-text-muted);
+  font-size: 0.9rem;
+}
+:host(opalite-accordion-item[open]) .body-inner { padding-bottom: 1rem; }
+
+/* ============================================================
+   <opalite-toaster>
+   ============================================================ */
+:host(opalite-toaster) {
+  position: fixed;
+  top: 1.5rem;
+  right: 1.5rem;
+  z-index: 100;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  pointer-events: none;
+}
+:host(opalite-toaster) .toast {
+  pointer-events: auto;
+  background: var(--opalite-bg);
+  color: var(--opalite-fg);
+  padding: 0.75rem 1rem;
+  border-radius: var(--opalite-radius);
+  box-shadow: var(--opalite-shadow);
+  font-size: 0.875rem;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  min-width: 18rem;
+  max-width: 24rem;
+  animation: opalite-slide-in 180ms ease;
+}
+:host(opalite-toaster) .toast.error { background: var(--opalite-danger); }
+:host(opalite-toaster) .toast.removing { animation: opalite-slide-out 150ms ease forwards; }
+:host(opalite-toaster) .dot { width: 6px; height: 6px; border-radius: 50%; flex-shrink: 0; }
+:host(opalite-toaster) .toast.success .dot { background: #4ade80; }
+:host(opalite-toaster) .toast.error .dot { background: #fecaca; }
+:host(opalite-toaster) .msg { flex: 1; }
+:host(opalite-toaster) .close {
+  background: none; border: 0; color: inherit;
+  opacity: 0.6; cursor: pointer; font-size: 1.1rem;
+  line-height: 1; padding: 0;
+}
+:host(opalite-toaster) .close:hover { opacity: 1; }
+
+@keyframes opalite-slide-in {
+  from { transform: translateX(20px); opacity: 0; }
+  to { transform: translateX(0); opacity: 1; }
+}
+@keyframes opalite-slide-out {
+  to { transform: translateX(20px); opacity: 0; }
+}
+
+/* ============================================================
+   <opalite-alert>
+   ============================================================ */
+:host(opalite-alert) { display: block; }
+
+:host(opalite-alert) .alert {
+  display: flex;
+  gap: 0.75rem;
+  padding: 0.875rem 1rem;
+  border-radius: var(--opalite-radius);
+  border: 1px solid;
+  font-size: 0.875rem;
+  align-items: flex-start;
+}
+:host(opalite-alert[type="success"]) .alert {
+  background: #f0fdf4; border-color: #bbf7d0; color: #166534;
+}
+:host(opalite-alert[type="warning"]) .alert {
+  background: #fffbeb; border-color: #fde68a; color: #92400e;
+}
+:host(opalite-alert[type="error"]) .alert {
+  background: #fef2f2; border-color: #fecaca; color: #991b1b;
+}
+:host(opalite-alert[type="info"]) .alert,
+:host(opalite-alert:not([type])) .alert {
+  background: #eff6ff; border-color: #bfdbfe; color: #1e40af;
+}
+:host(opalite-alert) .icon { flex-shrink: 0; margin-top: 1px; }
+:host(opalite-alert) .content { flex: 1; min-width: 0; }
+:host(opalite-alert) .title { font-weight: 600; margin: 0 0 0.125rem; }
+:host(opalite-alert) .body { line-height: 1.4; }
+:host(opalite-alert) .close {
+  background: none; border: 0; cursor: pointer;
+  color: inherit; opacity: 0.5; padding: 0;
+  font-size: 1.25rem; line-height: 1;
+}
+:host(opalite-alert) .close:hover { opacity: 1; }
+:host(opalite-alert:not([dismissible])) .close { display: none; }
+
+/* ============================================================
+   <opalite-badge>
+   ============================================================ */
+:host(opalite-badge) { display: inline-block; }
+
+:host(opalite-badge) .badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.125rem 0.5rem;
+  font-size: 0.75rem;
+  font-weight: 500;
+  border-radius: 999px;
+  background: var(--opalite-surface-2);
+  color: var(--opalite-text);
+  border: 1px solid var(--opalite-border);
+}
+:host(opalite-badge[variant="primary"]) .badge {
+  background: var(--opalite-bg); color: var(--opalite-fg); border-color: transparent;
+}
+:host(opalite-badge[variant="success"]) .badge {
+  background: #dcfce7; color: #166534; border-color: #bbf7d0;
+}
+:host(opalite-badge[variant="warning"]) .badge {
+  background: #fef3c7; color: #92400e; border-color: #fde68a;
+}
+:host(opalite-badge[variant="danger"]) .badge {
+  background: #fee2e2; color: #991b1b; border-color: #fecaca;
+}
+:host(opalite-badge[variant="info"]) .badge {
+  background: #dbeafe; color: #1e40af; border-color: #bfdbfe;
+}
+
+/* ============================================================
+   <opalite-card>
+   ============================================================ */
+:host(opalite-card) { display: block; }
+
+:host(opalite-card) .card {
+  background: var(--opalite-surface);
+  border: 1px solid var(--opalite-border);
+  border-radius: calc(var(--opalite-radius) * 1.5);
+  overflow: hidden;
+  transition: transform 180ms, box-shadow 180ms;
+}
+:host(opalite-card[hoverable]) .card:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--opalite-shadow);
+}
+:host(opalite-card) .header,
+:host(opalite-card) .footer {
+  padding: 1rem 1.25rem;
+  background: var(--opalite-surface-2);
+}
+:host(opalite-card) .header { border-bottom: 1px solid var(--opalite-border); }
+:host(opalite-card) .footer { border-top: 1px solid var(--opalite-border); }
+:host(opalite-card) .body { padding: 1.25rem; color: var(--opalite-text); }
+:host(opalite-card) .header:empty,
+:host(opalite-card) .footer:empty { display: none; }
+:host(opalite-card) ::slotted(*) { margin: 0; }
+
+/* ============================================================
+   <opalite-tooltip>
+   ============================================================ */
+:host(opalite-tooltip) { display: inline-block; position: relative; }
+
+:host(opalite-tooltip) .tip {
+  position: absolute;
+  background: #18181b;
+  color: #fff;
+  font-size: 0.75rem;
+  padding: 0.375rem 0.625rem;
+  border-radius: 0.375rem;
+  white-space: nowrap;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 120ms;
+  z-index: 50;
+}
+:host(opalite-tooltip[visible]) .tip { opacity: 1; }
+:host(opalite-tooltip:not([position])) .tip,
+:host(opalite-tooltip[position="top"]) .tip {
+  bottom: calc(100% + 6px); left: 50%; transform: translateX(-50%);
+}
+:host(opalite-tooltip[position="bottom"]) .tip {
+  top: calc(100% + 6px); left: 50%; transform: translateX(-50%);
+}
+:host(opalite-tooltip[position="left"]) .tip {
+  right: calc(100% + 6px); top: 50%; transform: translateY(-50%);
+}
+:host(opalite-tooltip[position="right"]) .tip {
+  left: calc(100% + 6px); top: 50%; transform: translateY(-50%);
+}
+
+/* ============================================================
+   <opalite-popover>
+   ============================================================ */
+:host(opalite-popover) { display: inline-block; position: relative; }
+
+:host(opalite-popover) .pop {
+  position: absolute;
+  top: calc(100% + 8px);
+  left: 0;
+  min-width: 14rem;
+  background: var(--opalite-surface);
+  border: 1px solid var(--opalite-border);
+  border-radius: var(--opalite-radius);
+  box-shadow: var(--opalite-shadow);
+  padding: 1rem;
+  display: none;
+  z-index: 30;
+  opacity: 0;
+  transform: translateY(-4px);
+  transition: opacity 140ms, transform 140ms;
+  font-size: 0.875rem;
+  color: var(--opalite-text);
+}
+:host(opalite-popover[open]) .pop {
+  display: block; opacity: 1; transform: translateY(0);
+}
+
+/* ============================================================
+   <opalite-command>
+   ============================================================ */
+:host(opalite-command) { display: none; }
+:host(opalite-command[open]) { display: block; }
+
+:host(opalite-command) .overlay {
+  position: fixed; inset: 0;
+  background: rgba(24, 24, 27, 0.5);
+  backdrop-filter: blur(4px);
+  z-index: 80;
+  display: grid;
+  place-items: start center;
+  padding-top: 15vh;
+}
+:host(opalite-command) .panel {
+  background: var(--opalite-surface);
+  border-radius: var(--opalite-radius);
+  box-shadow: var(--opalite-shadow);
+  width: 100%;
+  max-width: 32rem;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+:host(opalite-command) .search {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.875rem 1rem;
+  border-bottom: 1px solid var(--opalite-border);
+}
+:host(opalite-command) .search svg { color: var(--opalite-text-muted); flex-shrink: 0; }
+:host(opalite-command) .search input {
+  flex: 1; font: inherit; font-size: 0.95rem;
+  border: 0; outline: none; background: transparent;
+  color: var(--opalite-text);
+}
+:host(opalite-command) .list {
+  max-height: 20rem;
+  overflow-y: auto;
+  padding: 0.5rem;
+}
+:host(opalite-command) .empty {
+  padding: 2rem 1rem;
+  text-align: center;
+  color: var(--opalite-text-muted);
+  font-size: 0.875rem;
+}
+:host(opalite-command) ::slotted(opalite-command-item) {
+  display: block;
+  padding: 0.5rem 0.75rem;
+  font-size: 0.875rem;
+  color: var(--opalite-text);
+  border-radius: calc(var(--opalite-radius) - 2px);
+  cursor: pointer;
+}
+:host(opalite-command) ::slotted(opalite-command-item[hidden]) { display: none; }
+:host(opalite-command) ::slotted(opalite-command-item:hover),
+:host(opalite-command) ::slotted(opalite-command-item.opalite-active) {
+  background: var(--opalite-surface-2);
+}
+
+/* ============================================================
+   <opalite-input>
+   ============================================================ */
+:host(opalite-input) { display: block; }
+
+:host(opalite-input) label.field {
+  display: block;
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: var(--opalite-text);
+  margin-bottom: 0.375rem;
+}
+:host(opalite-input) .wrap {
+  display: flex;
+  align-items: center;
+  background: var(--opalite-surface);
+  border: 1px solid var(--opalite-border);
+  border-radius: var(--opalite-radius);
+  transition: border-color 120ms, box-shadow 120ms;
+}
+:host(opalite-input) .wrap:focus-within {
+  border-color: var(--opalite-text);
+  box-shadow: 0 0 0 3px var(--opalite-ring);
+}
+:host(opalite-input[error]) .wrap { border-color: var(--opalite-danger); }
+:host(opalite-input[error]) .wrap:focus-within {
+  box-shadow: 0 0 0 3px rgba(220, 38, 38, 0.15);
+}
+:host(opalite-input) input {
+  flex: 1;
+  font: inherit;
+  font-size: 0.875rem;
+  padding: 0.5rem 0.75rem;
+  background: transparent;
+  border: 0;
+  outline: none;
+  color: var(--opalite-text);
+  min-width: 0;
+}
+:host(opalite-input) input::placeholder { color: var(--opalite-text-muted); }
+:host(opalite-input) input:disabled { color: var(--opalite-text-muted); cursor: not-allowed; }
+:host(opalite-input) ::slotted([slot="prefix"]),
+:host(opalite-input) ::slotted([slot="suffix"]) {
+  padding: 0 0.5rem;
+  color: var(--opalite-text-muted);
+  display: flex; align-items: center;
+}
+:host(opalite-input) .error-msg {
+  color: var(--opalite-danger);
+  font-size: 0.75rem;
+  margin-top: 0.375rem;
+}
+:host(opalite-input) .error-msg:empty { display: none; }
+
+/* ============================================================
+   <opalite-select>
+   ============================================================ */
+:host(opalite-select) { display: block; }
+
+:host(opalite-select) label.field {
+  display: block;
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: var(--opalite-text);
+  margin-bottom: 0.375rem;
+}
+:host(opalite-select) .wrap {
+  position: relative;
+  background: var(--opalite-surface);
+  border: 1px solid var(--opalite-border);
+  border-radius: var(--opalite-radius);
+  transition: border-color 120ms, box-shadow 120ms;
+}
+:host(opalite-select) .wrap:focus-within {
+  border-color: var(--opalite-text);
+  box-shadow: 0 0 0 3px var(--opalite-ring);
+}
+:host(opalite-select) select {
+  appearance: none;
+  -webkit-appearance: none;
+  font: inherit;
+  font-size: 0.875rem;
+  padding: 0.5rem 2rem 0.5rem 0.75rem;
+  background: transparent;
+  border: 0;
+  outline: none;
+  color: var(--opalite-text);
+  width: 100%;
+  cursor: pointer;
+}
+:host(opalite-select) select:disabled { color: var(--opalite-text-muted); cursor: not-allowed; }
+:host(opalite-select) .arrow {
+  position: absolute;
+  right: 0.625rem;
+  top: 50%;
+  transform: translateY(-50%);
+  pointer-events: none;
+  color: var(--opalite-text-muted);
+}
+
+/* ============================================================
+   <opalite-checkbox>
+   ============================================================ */
+:host(opalite-checkbox) { display: inline-block; }
+
+:host(opalite-checkbox) label {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  cursor: pointer;
+  font-size: 0.875rem;
+  color: var(--opalite-text);
+  user-select: none;
+}
+:host(opalite-checkbox) input { position: absolute; opacity: 0; pointer-events: none; }
+:host(opalite-checkbox) .box {
+  width: 1.125rem;
+  height: 1.125rem;
+  border: 1px solid var(--opalite-border);
+  border-radius: 0.25rem;
+  background: var(--opalite-surface);
+  display: grid;
+  place-items: center;
+  transition: background 120ms, border-color 120ms;
+}
+:host(opalite-checkbox) input:checked + .box {
+  background: var(--opalite-bg);
+  border-color: var(--opalite-bg);
+}
+:host(opalite-checkbox) .check { color: #fff; opacity: 0; }
+:host(opalite-checkbox) input:checked + .box .check { opacity: 1; }
+:host(opalite-checkbox) input:focus-visible + .box {
+  box-shadow: 0 0 0 3px var(--opalite-ring);
+}
+:host(opalite-checkbox[disabled]) label { cursor: not-allowed; opacity: 0.6; }
+
+/* ============================================================
+   <opalite-switch>
+   ============================================================ */
+:host(opalite-switch) { display: inline-block; }
+
+:host(opalite-switch) label {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.625rem;
+  cursor: pointer;
+  font-size: 0.875rem;
+  color: var(--opalite-text);
+  user-select: none;
+}
+:host(opalite-switch) input { position: absolute; opacity: 0; pointer-events: none; }
+:host(opalite-switch) .track {
+  width: 2.25rem;
+  height: 1.25rem;
+  background: var(--opalite-border);
+  border-radius: 999px;
+  position: relative;
+  transition: background 160ms;
+}
+:host(opalite-switch) .thumb {
+  position: absolute;
+  top: 2px; left: 2px;
+  width: 1rem; height: 1rem;
+  background: #fff;
+  border-radius: 50%;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+  transition: transform 160ms;
+}
+:host(opalite-switch) input:checked + .track { background: var(--opalite-bg); }
+:host(opalite-switch) input:checked + .track .thumb { transform: translateX(1rem); }
+:host(opalite-switch) input:focus-visible + .track {
+  box-shadow: 0 0 0 3px var(--opalite-ring);
+}
+:host(opalite-switch[disabled]) label { cursor: not-allowed; opacity: 0.6; }
+
+/* ============================================================
+   <opalite-navbar>
+   ============================================================ */
+:host(opalite-navbar) {
+  display: block;
+  background: var(--opalite-surface);
+  border-bottom: 1px solid var(--opalite-border);
+}
+:host(opalite-navbar) nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.875rem 1.5rem;
+  max-width: 80rem;
+  margin: 0 auto;
+  gap: 1rem;
+}
+:host(opalite-navbar) .brand ::slotted(*) {
+  font-weight: 700;
+  font-size: 1.125rem;
+  color: var(--opalite-text);
+  text-decoration: none;
+}
+:host(opalite-navbar) .links {
+  display: flex;
+  gap: 0.25rem;
+  align-items: center;
+}
+:host(opalite-navbar) .links ::slotted(a) {
+  color: var(--opalite-text-muted);
+  text-decoration: none;
+  font-size: 0.875rem;
+  font-weight: 500;
+  padding: 0.375rem 0.75rem;
+  border-radius: calc(var(--opalite-radius) - 2px);
+}
+:host(opalite-navbar) .links ::slotted(a:hover) {
+  color: var(--opalite-text);
+  background: var(--opalite-surface-2);
+}
+:host(opalite-navbar) .actions {
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+}
+:host(opalite-navbar) .hamburger {
+  display: none;
+  background: none;
+  border: 0;
+  padding: 0.375rem;
+  cursor: pointer;
+  color: var(--opalite-text);
+}
+:host(opalite-navbar) .mobile {
+  display: none;
+  padding: 0.5rem 1.5rem 1rem;
+  border-top: 1px solid var(--opalite-border);
+}
+:host(opalite-navbar[open]) .mobile {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+:host(opalite-navbar) .mobile ::slotted(a) {
+  color: var(--opalite-text);
+  text-decoration: none;
+  font-size: 0.95rem;
+  padding: 0.625rem 0.5rem;
+  border-radius: calc(var(--opalite-radius) - 2px);
+}
+:host(opalite-navbar) .mobile ::slotted(a:hover) {
+  background: var(--opalite-surface-2);
+}
+@media (max-width: 720px) {
+  :host(opalite-navbar) .links { display: none; }
+  :host(opalite-navbar) .hamburger { display: block; }
+}
